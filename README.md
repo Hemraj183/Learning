@@ -14,159 +14,118 @@ This repository documents my journey to become proficient in modern AI/ML techno
 1. ✅ **Deep Learning Fundamentals** - Master PyTorch and neural network basics
 2. 🎯 **Large Language Models (LLMs)** - Understand transformer architecture and build LLMs from scratch
 3. 🎯 **Diffusion Models** - Learn generative AI and create custom diffusion models
-4. 🎯 **Model Creation** - Develop the skills to design and implement novel architectures
+4. 🎯 **Advanced Research Foundations** - Explore PEFT, MoE, and optimization for the next generation of models
 
-## 📚 Learning Path
+## 📚 12-Week Learning Roadmap
 
-### Phase 1: Deep Learning & PyTorch Fundamentals ✅
-**Status**: Completed  
-**Location**: [`pytorch-tutorial/`](./pytorch-tutorial)
+### Month 1: LLM Foundations 🎯
 
 #### Week 1: PyTorch Mastery ✅
-- Autograd and automatic differentiation
-- Custom nn.Modules with nn.Parameter
-- GPU tensor handling
-- Backpropagation and optimizers (AdamW)
-- Built an MLP from scratch for MNIST (97-98% accuracy)
-- **Key Achievement**: Created an interactive Pyodide-powered tutorial and terminal.
-
----
-
-### Phase 2: Large Language Models (LLMs) 🎯
-**Status**: In Progress  
-**Location**: `llm-foundations/` (starting now)
+- Autograd, custom modules, GPU handling, and optimizers.
+- **Project**: Built an MLP from scratch for MNIST (97-98% accuracy).
 
 #### Week 2: The Transformer Architecture (The Engine) 🎯
 - **Focus**: Self-Attention mechanism, Multi-Head Attention, and Positional Encoding.
-- **Theory**: "Attention Is All You Need" (Vaswani et al.). Understand the Q, K, V mechanism intuitively.
-- **Resource**: [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) by Jay Alammar.
-- **Coding Exercise**: Implement a single `TransformerBlock` class from scratch (`LayerNorm` -> `SelfAttention` -> `FeedForward`).
-- **Milestone**: Understand how information flows between tokens without recurrence.
+- **Theory**: "Attention Is All You Need" (Vaswani et al.).
+- **Coding**: Implement a `TransformerBlock` from scratch.
 
-#### Week 3 & Beyond: GPT and Fine-Tuning 🎯
-- Tokenization and embeddings
-- Training techniques (teacher forcing, beam search)
-- Building a GPT-style model from scratch
-- Fine-tuning pre-trained models
+#### Week 3: Variants & Latent Spaces 🎯
+- **Focus**: Encoder-Decoder (T5) vs. Decoder-only (GPT). BERT vs. GPT.
+- **Theory**: Tokenization, Embeddings, and the "Latent Space".
+- **Coding**: Load GPT-2 with Hugging Face, inspect tensor shapes (B, S, H).
 
----
-
-### Phase 3: Diffusion Models 🎯
-**Status**: Planned  
-**Location**: `diffusion-models/` (coming soon)
+#### Week 4: Month 1 Capstone – A "Router" Prototype 🎯
+- **Goal**: Build a toy version of a "Planner Network".
+- **Project**: Classifier to route prompts to specific modules using CLIP text embeddings.
+- **Milestone**: Working script that converts text to features and makes routing decisions.
 
 ---
 
-### Phase 4: Advanced Topics & Model Creation 🎯
-**Status**: Future  
-**Location**: `custom-models/` (coming soon)
+### Month 2: Generative AI & Diffusion Models 🎯
+
+#### Week 5: The Math of Diffusion (Forward & Reverse) 🎯
+- **Focus**: Forward noising process and reverse denoising process.
+- **Theory**: DDPM (Ho et al.) and the simplified objective function.
+- **Coding**: Implement and visualize the forward diffusion scheduler.
+
+#### Week 6: The U-Net Architecture 🎯
+- **Focus**: Residual connections, Down/Up-sampling, and Skip Connections.
+- **Theory**: How models process spatial vs. semantic information.
+- **Coding**: Build a "Mini-U-Net" to denoise small images (16x16) or signals.
+
+#### Week 7: Latent Diffusion & Stable Diffusion (LDM) 🎯
+- **Focus**: VAE and working in Latent Space. Cross-Attention mechanism.
+- **Theory**: "High-Resolution Image Synthesis with Latent Diffusion Models" (Rombach et al.).
+- **Coding**: Hook into Stable Diffusion v1.5 U-Net pass and profile tensor shapes.
+
+#### Week 8: Month 2 Capstone – The "Noisy" Router 🎯
+- **Project**: Train a tiny diffusion model (MNIST) with conditional switching.
+- **Goal**: Build a "Planner" that decides which expert model to load based on input.
+
+---
+
+### Month 3: Optimization, Modularity & Advanced Research 🎯
+
+#### Week 9: Parameter-Efficient Fine-Tuning (PEFT) & LoRA 🎯
+- **Focus**: LoRA (Low-Rank Adaptation) math and matrices (W = W0 + BA).
+- **Coding**: Train a LoRA adapter for Stable Diffusion on a specific style.
+
+#### Week 10: Mixture of Experts (MoE) & Dynamic Routing 🎯
+- **Focus**: Sparse activation and Load Balancing Loss.
+- **Theory**: Switch Transformers and dynamic expert selection.
+- **Coding**: Implement a simple "Switch Layer" in PyTorch.
+
+#### Week 11: Inference Optimization & Memory Profiling 🎯
+- **Focus**: VRAM management (Weights, KV Cache, Activations).
+- **Theory**: Gradient Checkpointing and Model Offloading.
+- **Coding**: Profile SD inference and implement memory-saving techniques.
+
+#### Week 12: Month 3 Capstone – The "LoRA Router" 🎯
+- **Goal**: Create a lightweight classifier to dynamically inject LoRA adapters.
+- **Project**: Complete PoC for dynamic expert routing with memory logging.
+
+---
 
 ## 📂 Repository Structure
 
 ```
 Learning/
-├── pytorch-tutorial/          # ✅ Week 1: PyTorch Fundamentals
-│   ├── index.html            # Interactive tutorial
-│   ├── style.css             # Premium UI design
-│   ├── script.js             # Interactive features
-│   └── README.md             # Project documentation
-│
-├── llm-foundations/          # 🎯 Week 2+: LLM Learning (Starting)
-│   └── ...
-│
-├── diffusion-models/         # 🎯 Phase 3: Diffusion Models (Coming Soon)
-│   └── ...
-│
-├── custom-models/            # 🎯 Phase 4: Novel Architectures (Coming Soon)
-│   └── ...
-│
+├── index.html                # 🏠 Central Learning Portal
+├── pytorch-tutorial/         # ✅ Week 1: PyTorch Fundamentals
+├── llm-foundations/          # 🎯 Week 2-4: LLM Foundations
+├── diffusion-models/         # 🎯 Week 5-8: Generative AI (Coming Soon)
+├── optimization-research/    # 🎯 Week 9-12: Advanced Topics (Coming Soon)
 └── README.md                 # This file
 ```
 
 ## 🛠️ Technologies & Tools
 
-- **Deep Learning**: PyTorch, TorchVision
-- **LLMs**: Transformers, Hugging Face, Tokenizers
-- **Diffusion**: Diffusers, Stable Diffusion
-- **Development**: Python, Jupyter Notebooks, Git
-- **Visualization**: Matplotlib, TensorBoard
-- **Deployment**: ONNX, TorchScript
-
-## 📖 Resources
-
-### Books & Papers
-- "Deep Learning" by Ian Goodfellow
-- "Attention Is All You Need" (Transformer paper)
-- "Denoising Diffusion Probabilistic Models" (DDPM paper)
-- "Language Models are Few-Shot Learners" (GPT-3 paper)
-
-### Online Courses
-- PyTorch Official Tutorials
-- Hugging Face NLP Course
-- Fast.ai Deep Learning Course
-- Stanford CS224N (NLP with Deep Learning)
-
-### Communities
-- PyTorch Forums
-- Hugging Face Community
-- r/MachineLearning
-- Papers With Code
+- **Core**: PyTorch, TorchVision, Hugging Face Diffusers/Transformers
+- **Research**: LoRA, PEFT, MoE, CLIP
+- **Tools**: Git, Jupyter, Pyodide (for interactive web elements)
 
 ## 🎓 Progress Tracking
 
-| Phase | Topic | Status | Completion |
-|-------|-------|--------|------------|
+| Week | Topic | Status | Completion |
+|------|-------|--------|------------|
 | 1 | PyTorch Fundamentals | ✅ Complete | 100% |
-| 1 | MLP from Scratch | ✅ Complete | 100% |
-| 2 | Transformer Architecture | 🎯 Planned | 0% |
-| 2 | GPT Implementation | 🎯 Planned | 0% |
-| 3 | Diffusion Basics | 🎯 Planned | 0% |
-| 3 | DDPM Implementation | 🎯 Planned | 0% |
-| 4 | Custom Model Design | 🎯 Future | 0% |
+| 2 | Transformer Architecture | ⚡ In Progress | 20% |
+| 3 | LLM Variants & HF | 🎯 Planned | 0% |
+| 4 | Router Capstone | 🎯 Planned | 0% |
+| 5-8 | Diffusion Models | 🎯 Planned | 0% |
+| 9-12| Research & Optimization| 🎯 Planned | 0% |
 
 ## 💡 Learning Principles
 
-1. **Learn by Doing**: Implement everything from scratch before using libraries
-2. **Understand the Math**: Don't just copy code, understand the theory
-3. **Document Everything**: Write clear explanations and tutorials
-4. **Build Projects**: Apply knowledge to real-world problems
-5. **Share Knowledge**: Create tutorials and help others learn
-
-## 🚀 Current Focus
-
-**Now Learning**: Large Language Models (LLMs)
-- Reading: "Attention Is All You Need" paper
-- Implementing: Transformer architecture from scratch
-- Goal: Build a working GPT-style model
-
-## 📝 Notes & Reflections
-
-### PyTorch Fundamentals (Completed)
-- **Key Insight**: Understanding autograd is crucial for debugging
-- **Challenge**: Getting GPU memory management right
-- **Achievement**: Built MLP without nn.Linear, achieved 97% accuracy on MNIST
-- **Next**: Apply these fundamentals to more complex architectures
-
-## 🤝 Contributing
-
-This is a personal learning repository, but suggestions and feedback are welcome! Feel free to:
-- Suggest learning resources
-- Point out errors or improvements
-- Share your own learning experiences
-
-## 📧 Contact
-
-- **GitHub**: [@Hemraj183](https://github.com/Hemraj183)
-- **Repository**: [Learning](https://github.com/Hemraj183/Learning)
-
-## 📜 License
-
-This repository is for educational purposes. Code and tutorials are free to use and learn from.
+1. **Learn by Doing**: Implement everything from scratch before using libraries.
+2. **Understand the Math**: Focus on the objective functions and matrix operations.
+3. **Research First**: Read the foundational papers (Attention, DDPM, LoRA).
+4. **Modular Design**: Build components that can be reused and combined.
 
 ---
 
 **Last Updated**: January 1, 2026  
-**Current Phase**: Transitioning from PyTorch Fundamentals to LLM Foundations
+**Current Focus**: Week 2 - Transformer Architecture
 
 > "The journey of a thousand miles begins with a single step." - Lao Tzu
 
