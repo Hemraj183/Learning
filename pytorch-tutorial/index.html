@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning & PyTorch Mastery</title>
+    <meta name="description" content="Interactive tutorial to master Deep Learning and PyTorch fundamentals">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>PyTorch<br><span class="gradient-text">Mastery</span></h1>
+            <div class="progress-ring">
+                <svg width="60" height="60">
+                    <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="26" cx="30" cy="30"/>
+                </svg>
+                <span class="progress-text">0%</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#intro" data-section="intro">Introduction</a></li>
+            <li><a href="#autograd" data-section="autograd">Autograd</a></li>
+            <li><a href="#modules" data-section="modules">Custom Modules</a></li>
+            <li><a href="#gpu" data-section="gpu">GPU Tensors</a></li>
+            <li><a href="#backprop" data-section="backprop">Backpropagation</a></li>
+            <li><a href="#optimizers" data-section="optimizers">Optimizers</a></li>
+            <li><a href="#mlp-project" data-section="mlp-project">MLP Project</a></li>
+            <li><a href="#exercises" data-section="exercises">Exercises</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Master Deep Learning & PyTorch</h1>
+            <p class="hero-subtitle">Interactive tutorial with hands-on coding exercises</p>
+            <div class="hero-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Learn by Doing</h3>
+                    <p>Build an MLP from scratch</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Interactive</h3>
+                    <p>Visualizations & examples</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Practical</h3>
+                    <p>Real-world PyTorch code</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section id="intro" class="section">
+            <h2 class="section-title">Introduction to PyTorch</h2>
+            <div class="content-card">
+                <h3>What is PyTorch?</h3>
+                <p>PyTorch is a powerful deep learning framework that provides:</p>
+                <ul>
+                    <li><strong>Tensors:</strong> Multi-dimensional arrays with GPU acceleration</li>
+                    <li><strong>Autograd:</strong> Automatic differentiation for building neural networks</li>
+                    <li><strong>Dynamic Computation Graphs:</strong> Flexibility in model architecture</li>
+                    <li><strong>Rich Ecosystem:</strong> Pre-built models, datasets, and utilities</li>
+                </ul>
+                
+                <h3>Your First Tensor</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="intro-1">Copy</button>
+                    </div>
+                    <pre><code id="intro-1">import torch
+
+# Create a tensor
+x = torch.tensor([[1, 2, 3],
+                  [4, 5, 6]], dtype=torch.float32)
+
+print(f"Shape: {x.shape}")
+print(f"Data type: {x.dtype}")
+print(f"Device: {x.device}")
+
+# Output:
+# Shape: torch.Size([2, 3])
+# Data type: torch.float32
+# Device: cpu</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Try it:</strong> Copy this code and run it in your Python environment to see tensors in action!
+                </div>
+
+                <h3>Tensor Operations</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="intro-2">Copy</button>
+                    </div>
+                    <pre><code id="intro-2">import torch
+
+a = torch.tensor([1.0, 2.0, 3.0])
+b = torch.tensor([4.0, 5.0, 6.0])
+
+# Element-wise operations
+print(a + b)  # tensor([5., 7., 9.])
+print(a * b)  # tensor([4., 10., 18.])
+
+# Matrix operations
+A = torch.randn(3, 4)
+B = torch.randn(4, 2)
+C = torch.mm(A, B)  # Matrix multiplication
+print(C.shape)  # torch.Size([3, 2])</code></pre>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-intro" class="checkpoint-input">
+                    <label for="check-intro">I understand PyTorch tensors and basic operations</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Autograd Section -->
+        <section id="autograd" class="section">
+            <h2 class="section-title">Autograd: Automatic Differentiation</h2>
+            <div class="content-card">
+                <h3>How Autograd Works</h3>
+                <p>PyTorch's autograd system automatically computes gradients by building a computational graph. Every operation on tensors with <code>requires_grad=True</code> is tracked.</p>
+
+                <div class="visualization-box">
+                    <h4>Computational Graph Visualization</h4>
+                    <div id="autograd-viz" class="viz-container">
+                        <svg width="100%" height="300" viewBox="0 0 600 300">
+                            <!-- Input -->
+                            <g class="node" data-step="0">
+                                <circle cx="100" cy="150" r="30" fill="#a855f7" opacity="0.2"/>
+                                <circle cx="100" cy="150" r="25" fill="#a855f7"/>
+                                <text x="100" y="155" text-anchor="middle" fill="white" font-size="14">x</text>
+                                <text x="100" y="200" text-anchor="middle" fill="#a855f7" font-size="12">Input</text>
+                            </g>
+                            
+                            <!-- Operation 1: x² -->
+                            <g class="node" data-step="1">
+                                <line x1="130" y1="150" x2="220" y2="150" stroke="#06b6d4" stroke-width="2" opacity="0.5"/>
+                                <circle cx="250" cy="150" r="30" fill="#06b6d4" opacity="0.2"/>
+                                <circle cx="250" cy="150" r="25" fill="#06b6d4"/>
+                                <text x="250" y="155" text-anchor="middle" fill="white" font-size="14">x²</text>
+                                <text x="250" y="200" text-anchor="middle" fill="#06b6d4" font-size="12">Square</text>
+                            </g>
+                            
+                            <!-- Operation 2: +3 -->
+                            <g class="node" data-step="2">
+                                <line x1="280" y1="150" x2="370" y2="150" stroke="#10b981" stroke-width="2" opacity="0.5"/>
+                                <circle cx="400" cy="150" r="30" fill="#10b981" opacity="0.2"/>
+                                <circle cx="400" cy="150" r="25" fill="#10b981"/>
+                                <text x="400" y="155" text-anchor="middle" fill="white" font-size="14">+3</text>
+                                <text x="400" y="200" text-anchor="middle" fill="#10b981" font-size="12">Add</text>
+                            </g>
+                            
+                            <!-- Output -->
+                            <g class="node" data-step="3">
+                                <line x1="430" y1="150" x2="470" y2="150" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+                                <circle cx="500" cy="150" r="30" fill="#f59e0b" opacity="0.2"/>
+                                <circle cx="500" cy="150" r="25" fill="#f59e0b"/>
+                                <text x="500" y="155" text-anchor="middle" fill="white" font-size="14">y</text>
+                                <text x="500" y="200" text-anchor="middle" fill="#f59e0b" font-size="12">Output</text>
+                            </g>
+                            
+                            <!-- Gradient flow (backward) -->
+                            <g class="gradient-flow" style="opacity: 0;">
+                                <path d="M 470 140 L 430 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 370 140 L 280 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 220 140 L 130 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#ef4444"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                        <button class="viz-btn" id="animate-autograd">Animate Gradient Flow</button>
+                    </div>
+                </div>
+
+                <h3>Basic Autograd Example</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="autograd-1">Copy</button>
+                    </div>
+                    <pre><code id="autograd-1">import torch
+
+# Create a tensor with gradient tracking
+x = torch.tensor(2.0, requires_grad=True)
+
+# Forward pass: y = x² + 3
+y = x ** 2 + 3
+
+# Backward pass: compute dy/dx
+y.backward()
+
+# Access the gradient
+print(f"dy/dx at x=2: {x.grad}")  # Output: 4.0
+# Because d(x² + 3)/dx = 2x, and 2*2 = 4</code></pre>
+                </div>
+
+                <h3>Multi-Variable Gradients</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="autograd-2">Copy</button>
+                    </div>
+                    <pre><code id="autograd-2">import torch
+
+# Multiple inputs
+x = torch.tensor(3.0, requires_grad=True)
+w = torch.tensor(2.0, requires_grad=True)
+b = torch.tensor(1.0, requires_grad=True)
+
+# Forward: y = w*x + b
+y = w * x + b
+
+# Backward
+y.backward()
+
+print(f"dy/dx = {x.grad}")  # 2.0 (coefficient of x)
+print(f"dy/dw = {w.grad}")  # 3.0 (value of x)
+print(f"dy/db = {b.grad}")  # 1.0 (constant)</code></pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Common Pitfall:</strong> Gradients accumulate! Always call <code>optimizer.zero_grad()</code> or <code>tensor.grad.zero_()</code> before computing new gradients.
+                </div>
+
+                <h3>Gradient Accumulation Demo</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="autograd-3">Copy</button>
+                    </div>
+                    <pre><code id="autograd-3">import torch
+
+x = torch.tensor(2.0, requires_grad=True)
+
+# First computation
+y1 = x ** 2
+y1.backward()
+print(f"First gradient: {x.grad}")  # 4.0
+
+# Second computation WITHOUT zeroing
+y2 = x ** 3
+y2.backward()
+print(f"Accumulated gradient: {x.grad}")  # 16.0 (4 + 12)
+
+# Correct way: zero gradients
+x.grad.zero_()
+y3 = x ** 3
+y3.backward()
+print(f"Fresh gradient: {x.grad}")  # 12.0</code></pre>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-autograd" class="checkpoint-input">
+                    <label for="check-autograd">I understand autograd and gradient computation</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Modules Section -->
+        <section id="modules" class="section">
+            <h2 class="section-title">Custom nn.Modules</h2>
+            <div class="content-card">
+                <h3>Building Blocks of PyTorch Models</h3>
+                <p>All neural network components in PyTorch inherit from <code>nn.Module</code>. This provides automatic parameter tracking, GPU movement, and more.</p>
+
+                <h3>Anatomy of nn.Module</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="module-1">Copy</button>
+                    </div>
+                    <pre><code id="module-1">import torch
+import torch.nn as nn
+
+class SimpleLayer(nn.Module):
+    def __init__(self, input_size, output_size):
+        super().__init__()  # Always call parent constructor
+        
+        # Define parameters
+        self.weight = nn.Parameter(torch.randn(output_size, input_size))
+        self.bias = nn.Parameter(torch.zeros(output_size))
+    
+    def forward(self, x):
+        # Define the forward pass
+        return x @ self.weight.T + self.bias
+
+# Usage
+layer = SimpleLayer(10, 5)
+x = torch.randn(32, 10)  # Batch of 32 samples
+output = layer(x)
+print(output.shape)  # torch.Size([32, 5])</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Key Concepts:</strong>
+                    <ul>
+                        <li><code>nn.Parameter</code> automatically registers tensors as learnable parameters</li>
+                        <li><code>forward()</code> method defines the computation</li>
+                        <li>Calling the module (e.g., <code>layer(x)</code>) invokes <code>forward()</code></li>
+                    </ul>
+                </div>
+
+                <h3>Comparison: nn.Linear vs Manual Implementation</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="module-2">Copy</button>
+                    </div>
+                    <pre><code id="module-2">import torch
+import torch.nn as nn
+
+# Built-in nn.Linear
+linear_builtin = nn.Linear(10, 5)
+
+# Manual implementation (what we'll use for MLP project)
+class ManualLinear(nn.Module):
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        # Xavier/Glorot initialization
+        self.weight = nn.Parameter(
+            torch.randn(out_features, in_features) * (2.0 / in_features) ** 0.5
+        )
+        self.bias = nn.Parameter(torch.zeros(out_features))
+    
+    def forward(self, x):
+        # x: (batch_size, in_features)
+        # weight: (out_features, in_features)
+        # output: (batch_size, out_features)
+        return x @ self.weight.T + self.bias
+
+# Test both
+x = torch.randn(16, 10)
+print("Built-in:", linear_builtin(x).shape)
+manual = ManualLinear(10, 5)
+print("Manual:", manual(x).shape)</code></pre>
+                </div>
+
+                <h3>Multi-Layer Module</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="module-3">Copy</button>
+                    </div>
+                    <pre><code id="module-3">import torch
+import torch.nn as nn
+
+class TwoLayerNet(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        self.layer1 = ManualLinear(input_size, hidden_size)
+        self.layer2 = ManualLinear(hidden_size, output_size)
+    
+    def forward(self, x):
+        x = self.layer1(x)
+        x = torch.relu(x)  # Activation function
+        x = self.layer2(x)
+        return x
+
+# Create model
+model = TwoLayerNet(784, 128, 10)  # For MNIST
+
+# Check parameters
+total_params = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total_params:,}")
+
+# Forward pass
+x = torch.randn(32, 784)
+output = model(x)
+print(f"Output shape: {output.shape}")  # [32, 10]</code></pre>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-modules" class="checkpoint-input">
+                    <label for="check-modules">I can create custom nn.Modules with nn.Parameter</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- GPU Section -->
+        <section id="gpu" class="section">
+            <h2 class="section-title">GPU Tensor Handling</h2>
+            <div class="content-card">
+                <h3>Moving Tensors to GPU</h3>
+                <p>PyTorch makes it easy to leverage GPU acceleration for faster computation.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="gpu-1">Copy</button>
+                    </div>
+                    <pre><code id="gpu-1">import torch
+
+# Check if GPU is available
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+# Create tensor on CPU
+x_cpu = torch.randn(1000, 1000)
+
+# Move to GPU
+x_gpu = x_cpu.to(device)
+# Or: x_gpu = x_cpu.cuda()  # if you know GPU is available
+
+print(f"CPU tensor device: {x_cpu.device}")
+print(f"GPU tensor device: {x_gpu.device}")</code></pre>
+                </div>
+
+                <h3>Moving Models to GPU</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="gpu-2">Copy</button>
+                    </div>
+                    <pre><code id="gpu-2">import torch
+import torch.nn as nn
+
+# Define model
+model = TwoLayerNet(784, 128, 10)
+
+# Move entire model to GPU
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = model.to(device)
+
+# Now all parameters are on GPU
+for name, param in model.named_parameters():
+    print(f"{name}: {param.device}")
+
+# Input must also be on same device
+x = torch.randn(32, 784).to(device)
+output = model(x)  # Works!</code></pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> Tensors on different devices cannot interact! Always ensure model and input are on the same device.
+                </div>
+
+                <h3>Best Practices</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="gpu-3">Copy</button>
+                    </div>
+                    <pre><code id="gpu-3">import torch
+import torch.nn as nn
+
+# 1. Set device at the start
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# 2. Move model to device
+model = MyModel().to(device)
+
+# 3. In training loop, move batches to device
+for batch_x, batch_y in dataloader:
+    batch_x = batch_x.to(device)
+    batch_y = batch_y.to(device)
+    
+    # Forward pass
+    output = model(batch_x)
+    loss = criterion(output, batch_y)
+    
+    # Backward pass
+    loss.backward()
+    optimizer.step()
+
+# 4. Move back to CPU for numpy conversion
+predictions = model(test_x.to(device)).cpu().numpy()</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Memory Management:</strong>
+                    <ul>
+                        <li>Use <code>torch.cuda.empty_cache()</code> to free unused memory</li>
+                        <li>Use <code>with torch.no_grad():</code> for inference to save memory</li>
+                        <li>Monitor GPU memory with <code>torch.cuda.memory_allocated()</code></li>
+                    </ul>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-gpu" class="checkpoint-input">
+                    <label for="check-gpu">I understand GPU tensor handling and device management</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backpropagation Section -->
+        <section id="backprop" class="section">
+            <h2 class="section-title">Backpropagation Theory</h2>
+            <div class="content-card">
+                <h3>The Chain Rule</h3>
+                <p>Backpropagation is just the chain rule applied to neural networks. It computes gradients efficiently by reusing intermediate results.</p>
+
+                <div class="visualization-box">
+                    <h4>Gradient Flow Visualization</h4>
+                    <div id="backprop-viz" class="viz-container">
+                        <div class="backprop-example">
+                            <div class="bp-layer">
+                                <div class="bp-node">Input<br>x = 2</div>
+                            </div>
+                            <div class="bp-arrow">→</div>
+                            <div class="bp-layer">
+                                <div class="bp-node">Hidden<br>h = x²<br>= 4</div>
+                            </div>
+                            <div class="bp-arrow">→</div>
+                            <div class="bp-layer">
+                                <div class="bp-node">Output<br>y = h + 3<br>= 7</div>
+                            </div>
+                        </div>
+                        <div class="backprop-example gradient-example" style="margin-top: 20px;">
+                            <div class="bp-layer">
+                                <div class="bp-node bp-gradient">∂y/∂x<br>= 4</div>
+                            </div>
+                            <div class="bp-arrow bp-back">←</div>
+                            <div class="bp-layer">
+                                <div class="bp-node bp-gradient">∂y/∂h<br>= 1</div>
+                            </div>
+                            <div class="bp-arrow bp-back">←</div>
+                            <div class="bp-layer">
+                                <div class="bp-node bp-gradient">∂y/∂y<br>= 1</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 15px; text-align: center; color: #06b6d4;">
+                            Chain Rule: ∂y/∂x = (∂y/∂h) × (∂h/∂x) = 1 × 2x = 1 × 4 = 4
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Manual Backpropagation</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="backprop-1">Copy</button>
+                    </div>
+                    <pre><code id="backprop-1">import torch
+
+# Forward pass (with tracking)
+x = torch.tensor(2.0, requires_grad=True)
+w = torch.tensor(3.0, requires_grad=True)
+
+# y = w * x²
+x_squared = x ** 2
+y = w * x_squared
+
+print(f"Forward: y = {y.item()}")  # 12.0
+
+# Backward pass
+y.backward()
+
+# Gradients
+print(f"∂y/∂x = {x.grad}")  # 12.0 (= 2*w*x = 2*3*2)
+print(f"∂y/∂w = {w.grad}")  # 4.0 (= x²)
+
+# Manual verification
+# ∂y/∂x = ∂(w*x²)/∂x = w * 2x = 3 * 2*2 = 12 ✓
+# ∂y/∂w = ∂(w*x²)/∂w = x² = 4 ✓</code></pre>
+                </div>
+
+                <h3>Neural Network Backprop</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="backprop-2">Copy</button>
+                    </div>
+                    <pre><code id="backprop-2">import torch
+import torch.nn as nn
+
+# Simple network
+class SimpleNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.w1 = nn.Parameter(torch.randn(1))
+        self.w2 = nn.Parameter(torch.randn(1))
+    
+    def forward(self, x):
+        h = self.w1 * x  # Hidden layer
+        y = self.w2 * h  # Output layer
+        return y
+
+model = SimpleNet()
+x = torch.tensor([2.0])
+target = torch.tensor([10.0])
+
+# Forward
+output = model(x)
+loss = (output - target) ** 2
+
+print(f"Loss: {loss.item():.4f}")
+
+# Backward
+loss.backward()
+
+print(f"∂L/∂w1 = {model.w1.grad}")
+print(f"∂L/∂w2 = {model.w2.grad}")</code></pre>
+                </div>
+
+                <h3>Loss Landscapes</h3>
+                <p>The loss landscape shows how the loss changes with different parameter values. Optimizers navigate this landscape to find minima.</p>
+
+                <div class="visualization-box">
+                    <h4>2D Loss Landscape</h4>
+                    <div class="loss-landscape">
+                        <canvas id="loss-canvas" width="400" height="400"></canvas>
+                        <p style="text-align: center; margin-top: 10px; color: #a855f7;">
+                            Darker = Lower Loss | Lighter = Higher Loss
+                        </p>
+                    </div>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-backprop" class="checkpoint-input">
+                    <label for="check-backprop">I understand backpropagation and the chain rule</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Optimizers Section -->
+        <section id="optimizers" class="section">
+            <h2 class="section-title">Optimizers (AdamW)</h2>
+            <div class="content-card">
+                <h3>What Are Optimizers?</h3>
+                <p>Optimizers update model parameters based on gradients to minimize the loss function. Different optimizers use different strategies.</p>
+
+                <h3>Common Optimizers</h3>
+                <div class="optimizer-comparison">
+                    <div class="opt-card">
+                        <h4>SGD</h4>
+                        <p>Stochastic Gradient Descent</p>
+                        <code>θ = θ - lr × ∇L</code>
+                        <p class="opt-desc">Simple but effective. Can be slow.</p>
+                    </div>
+                    <div class="opt-card">
+                        <h4>Adam</h4>
+                        <p>Adaptive Moment Estimation</p>
+                        <code>Uses momentum + adaptive learning rates</code>
+                        <p class="opt-desc">Fast convergence, popular choice.</p>
+                    </div>
+                    <div class="opt-card opt-highlight">
+                        <h4>AdamW</h4>
+                        <p>Adam with Weight Decay</p>
+                        <code>Adam + proper L2 regularization</code>
+                        <p class="opt-desc">Best for most deep learning tasks.</p>
+                    </div>
+                </div>
+
+                <h3>Using AdamW</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="opt-1">Copy</button>
+                    </div>
+                    <pre><code id="opt-1">import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Create model
+model = TwoLayerNet(784, 128, 10)
+
+# Create AdamW optimizer
+optimizer = optim.AdamW(
+    model.parameters(),
+    lr=0.001,           # Learning rate
+    weight_decay=0.01   # L2 regularization
+)
+
+# Training step
+def train_step(model, optimizer, x, y):
+    # Forward pass
+    output = model(x)
+    loss = nn.CrossEntropyLoss()(output, y)
+    
+    # Backward pass
+    optimizer.zero_grad()  # Clear old gradients
+    loss.backward()        # Compute new gradients
+    optimizer.step()       # Update parameters
+    
+    return loss.item()
+
+# Example usage
+x = torch.randn(32, 784)
+y = torch.randint(0, 10, (32,))
+loss = train_step(model, optimizer, x, y)
+print(f"Loss: {loss:.4f}")</code></pre>
+                </div>
+
+                <h3>Learning Rate Scheduling</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="opt-2">Copy</button>
+                    </div>
+                    <pre><code id="opt-2">import torch.optim as optim
+from torch.optim.lr_scheduler import CosineAnnealingLR
+
+# Create optimizer
+optimizer = optim.AdamW(model.parameters(), lr=0.001)
+
+# Create scheduler
+scheduler = CosineAnnealingLR(optimizer, T_max=100)
+
+# Training loop
+for epoch in range(100):
+    for batch in dataloader:
+        # Training step
+        loss = train_step(model, optimizer, batch)
+    
+    # Update learning rate
+    scheduler.step()
+    
+    # Check current learning rate
+    current_lr = optimizer.param_groups[0]['lr']
+    print(f"Epoch {epoch}, LR: {current_lr:.6f}")</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Why AdamW?</strong>
+                    <ul>
+                        <li>Combines benefits of momentum and adaptive learning rates</li>
+                        <li>Proper weight decay (better than L2 in Adam)</li>
+                        <li>Works well across many tasks with minimal tuning</li>
+                        <li>Industry standard for transformers and modern architectures</li>
+                    </ul>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-optimizers" class="checkpoint-input">
+                    <label for="check-optimizers">I understand optimizers and can use AdamW</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- MLP Project Section -->
+        <section id="mlp-project" class="section">
+            <h2 class="section-title">🎯 Main Project: MLP from Scratch</h2>
+            <div class="content-card">
+                <h3>Project Goal</h3>
+                <p class="project-goal">Build a Multi-Layer Perceptron to classify MNIST handwritten digits <strong>without using nn.Linear</strong>. You'll implement everything using <code>nn.Parameter</code> and matrix multiplication.</p>
+
+                <div class="project-specs">
+                    <h4>Specifications</h4>
+                    <ul>
+                        <li>Input: 28×28 grayscale images (784 pixels)</li>
+                        <li>Architecture: 784 → 256 → 128 → 10</li>
+                        <li>Activation: ReLU</li>
+                        <li>Loss: Cross-Entropy</li>
+                        <li>Optimizer: AdamW</li>
+                        <li>Target: >95% test accuracy</li>
+                    </ul>
+                </div>
+
+                <h3>Step 1: Manual Linear Layer</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-1">Copy</button>
+                    </div>
+                    <pre><code id="mlp-1">import torch
+import torch.nn as nn
+
+class ManualLinear(nn.Module):
+    """Linear layer implemented with nn.Parameter"""
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        # Xavier initialization
+        self.weight = nn.Parameter(
+            torch.randn(out_features, in_features) * (2.0 / in_features) ** 0.5
+        )
+        self.bias = nn.Parameter(torch.zeros(out_features))
+    
+    def forward(self, x):
+        # x: (batch_size, in_features)
+        # weight: (out_features, in_features)
+        # output: (batch_size, out_features)
+        return x @ self.weight.T + self.bias</code></pre>
+                </div>
+
+                <h3>Step 2: MLP Architecture</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-2">Copy</button>
+                    </div>
+                    <pre><code id="mlp-2">import torch
+import torch.nn as nn
+
+class MLP(nn.Module):
+    """Multi-Layer Perceptron for MNIST"""
+    def __init__(self):
+        super().__init__()
+        self.layer1 = ManualLinear(784, 256)
+        self.layer2 = ManualLinear(256, 128)
+        self.layer3 = ManualLinear(128, 10)
+    
+    def forward(self, x):
+        # Flatten input: (batch, 1, 28, 28) -> (batch, 784)
+        x = x.view(x.size(0), -1)
+        
+        # Layer 1
+        x = self.layer1(x)
+        x = torch.relu(x)
+        
+        # Layer 2
+        x = self.layer2(x)
+        x = torch.relu(x)
+        
+        # Layer 3 (output)
+        x = self.layer3(x)
+        
+        return x  # Raw logits (CrossEntropyLoss applies softmax)</code></pre>
+                </div>
+
+                <h3>Step 3: Data Loading</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-3">Copy</button>
+                    </div>
+                    <pre><code id="mlp-3">import torch
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+
+# Define transforms
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.1307,), (0.3081,))  # MNIST mean and std
+])
+
+# Download and load data
+train_dataset = datasets.MNIST(
+    root='./data',
+    train=True,
+    download=True,
+    transform=transform
+)
+
+test_dataset = datasets.MNIST(
+    root='./data',
+    train=False,
+    download=True,
+    transform=transform
+)
+
+# Create data loaders
+train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)</code></pre>
+                </div>
+
+                <h3>Step 4: Training Loop</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-4">Copy</button>
+                    </div>
+                    <pre><code id="mlp-4">import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Setup
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = MLP().to(device)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
+
+# Training function
+def train_epoch(model, train_loader, criterion, optimizer, device):
+    model.train()
+    total_loss = 0
+    correct = 0
+    total = 0
+    
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
+        
+        # Forward pass
+        optimizer.zero_grad()
+        output = model(data)
+        loss = criterion(output, target)
+        
+        # Backward pass
+        loss.backward()
+        optimizer.step()
+        
+        # Statistics
+        total_loss += loss.item()
+        pred = output.argmax(dim=1)
+        correct += pred.eq(target).sum().item()
+        total += target.size(0)
+        
+        if batch_idx % 100 == 0:
+            print(f'Batch {batch_idx}/{len(train_loader)}, '
+                  f'Loss: {loss.item():.4f}, '
+                  f'Acc: {100.*correct/total:.2f}%')
+    
+    return total_loss / len(train_loader), 100. * correct / total</code></pre>
+                </div>
+
+                <h3>Step 5: Evaluation</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-5">Copy</button>
+                    </div>
+                    <pre><code id="mlp-5">def evaluate(model, test_loader, criterion, device):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    
+    with torch.no_grad():  # Disable gradient computation
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            test_loss += criterion(output, target).item()
+            pred = output.argmax(dim=1)
+            correct += pred.eq(target).sum().item()
+    
+    test_loss /= len(test_loader)
+    accuracy = 100. * correct / len(test_loader.dataset)
+    
+    print(f'\nTest set: Average loss: {test_loss:.4f}, '
+          f'Accuracy: {correct}/{len(test_loader.dataset)} '
+          f'({accuracy:.2f}%)\n')
+    
+    return test_loss, accuracy</code></pre>
+                </div>
+
+                <h3>Step 6: Complete Training Script</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" data-copy="mlp-6">Copy</button>
+                    </div>
+                    <pre><code id="mlp-6"># Main training loop
+num_epochs = 10
+
+for epoch in range(1, num_epochs + 1):
+    print(f'\nEpoch {epoch}/{num_epochs}')
+    print('-' * 50)
+    
+    # Train
+    train_loss, train_acc = train_epoch(
+        model, train_loader, criterion, optimizer, device
+    )
+    
+    # Evaluate
+    test_loss, test_acc = evaluate(
+        model, test_loader, criterion, device
+    )
+    
+    print(f'Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}%')
+    print(f'Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.2f}%')
+
+# Save model
+torch.save(model.state_dict(), 'mnist_mlp.pth')
+print('\nModel saved to mnist_mlp.pth')</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <strong>🎉 Expected Results:</strong>
+                    <ul>
+                        <li>Training accuracy: ~99%</li>
+                        <li>Test accuracy: ~97-98%</li>
+                        <li>Training time: ~2-3 minutes on GPU, ~10 minutes on CPU</li>
+                    </ul>
+                </div>
+
+                <h3>Complete Code Download</h3>
+                <div class="download-section">
+                    <p>Copy all the code above into a single Python file and run it! Make sure you have PyTorch and torchvision installed:</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" data-copy="install">Copy</button>
+                        </div>
+                        <pre><code id="install">pip install torch torchvision</code></pre>
+                    </div>
+                </div>
+
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-mlp" class="checkpoint-input">
+                    <label for="check-mlp">I've built and trained the MLP from scratch successfully!</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercises Section -->
+        <section id="exercises" class="section">
+            <h2 class="section-title">Exercises & Challenges</h2>
+            <div class="content-card">
+                <h3>Test Your Knowledge</h3>
+                
+                <div class="exercise-card">
+                    <h4>Exercise 1: Gradient Debugging</h4>
+                    <p>What's wrong with this code?</p>
+                    <div class="code-block">
+                        <pre><code>x = torch.tensor(2.0, requires_grad=True)
+y = x ** 2
+y.backward()
+z = x ** 3
+z.backward()
+print(x.grad)  # What will this print?</code></pre>
+                    </div>
+                    <details>
+                        <summary>Show Answer</summary>
+                        <p>The gradient will be accumulated! It will print the sum of gradients from both backward passes. You need to call <code>x.grad.zero_()</code> between the two backward passes.</p>
+                    </details>
+                </div>
+
+                <div class="exercise-card">
+                    <h4>Exercise 2: Add Dropout</h4>
+                    <p>Modify the MLP to include dropout layers with p=0.2 after each ReLU activation.</p>
+                    <details>
+                        <summary>Show Solution</summary>
+                        <div class="code-block">
+                            <pre><code>class MLPWithDropout(nn.Module):
+    def __init__(self, dropout_p=0.2):
+        super().__init__()
+        self.layer1 = ManualLinear(784, 256)
+        self.layer2 = ManualLinear(256, 128)
+        self.layer3 = ManualLinear(128, 10)
+        self.dropout = nn.Dropout(dropout_p)
+    
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        x = self.dropout(torch.relu(self.layer1(x)))
+        x = self.dropout(torch.relu(self.layer2(x)))
+        x = self.layer3(x)
+        return x</code></pre>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="exercise-card">
+                    <h4>Exercise 3: Batch Normalization</h4>
+                    <p>Add batch normalization layers to the MLP. Where should they go?</p>
+                    <details>
+                        <summary>Show Solution</summary>
+                        <div class="code-block">
+                            <pre><code>class MLPWithBatchNorm(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layer1 = ManualLinear(784, 256)
+        self.bn1 = nn.BatchNorm1d(256)
+        self.layer2 = ManualLinear(256, 128)
+        self.bn2 = nn.BatchNorm1d(128)
+        self.layer3 = ManualLinear(128, 10)
+    
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        x = torch.relu(self.bn1(self.layer1(x)))
+        x = torch.relu(self.bn2(self.layer2(x)))
+        x = self.layer3(x)
+        return x</code></pre>
+                        </div>
+                        <p>BatchNorm goes after the linear layer but before the activation.</p>
+                    </details>
+                </div>
+
+                <div class="exercise-card">
+                    <h4>Challenge: Implement He Initialization</h4>
+                    <p>Modify <code>ManualLinear</code> to use He initialization instead of Xavier. He initialization is better for ReLU activations.</p>
+                    <details>
+                        <summary>Show Solution</summary>
+                        <div class="code-block">
+                            <pre><code>class ManualLinear(nn.Module):
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        # He initialization for ReLU
+        self.weight = nn.Parameter(
+            torch.randn(out_features, in_features) * (2.0 / in_features) ** 0.5
+        )
+        self.bias = nn.Parameter(torch.zeros(out_features))
+    
+    def forward(self, x):
+        return x @ self.weight.T + self.bias</code></pre>
+                        </div>
+                        <p>He initialization uses <code>sqrt(2/n_in)</code> instead of <code>sqrt(2/n_in)</code> for Xavier.</p>
+                    </details>
+                </div>
+
+                <h3>Milestone Checklist</h3>
+                <div class="milestone-checklist">
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-1" class="checkpoint-input">
+                        <label for="milestone-1">I can create and manipulate PyTorch tensors</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-2" class="checkpoint-input">
+                        <label for="milestone-2">I understand autograd and can compute gradients</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-3" class="checkpoint-input">
+                        <label for="milestone-3">I can build custom nn.Modules with nn.Parameter</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-4" class="checkpoint-input">
+                        <label for="milestone-4">I can move models and tensors to GPU</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-5" class="checkpoint-input">
+                        <label for="milestone-5">I understand backpropagation and the chain rule</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-6" class="checkpoint-input">
+                        <label for="milestone-6">I can use optimizers (especially AdamW)</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-7" class="checkpoint-input">
+                        <label for="milestone-7">I can write a complete training loop without documentation</label>
+                    </div>
+                    <div class="checkpoint">
+                        <input type="checkbox" id="milestone-8" class="checkpoint-input">
+                        <label for="milestone-8">I've built an MLP from scratch for MNIST</label>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3>🎓 Congratulations!</h3>
+                    <p>If you've completed all checkpoints, you're now proficient in PyTorch fundamentals! You can:</p>
+                    <ul>
+                        <li>Build neural networks from scratch</li>
+                        <li>Understand how gradients flow through your models</li>
+                        <li>Train models efficiently on GPU</li>
+                        <li>Debug gradient and training issues</li>
+                    </ul>
+                    <p><strong>Next Steps:</strong> Explore CNNs, RNNs, Transformers, and advanced architectures!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ for PyTorch learners | Happy coding! 🚀</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
