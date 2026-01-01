@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,23 @@
     <meta name="description" content="Interactive tutorial to master Deep Learning and PyTorch fundamentals">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="animated-bg"></div>
-    
+
     <!-- Navigation Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-header">
             <h1>PyTorch<br><span class="gradient-text">Mastery</span></h1>
             <div class="progress-ring">
                 <svg width="60" height="60">
-                    <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="26" cx="30" cy="30"/>
+                    <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="26" cx="30" cy="30" />
                 </svg>
                 <span class="progress-text">0%</span>
             </div>
@@ -74,7 +78,7 @@
                     <li><strong>Dynamic Computation Graphs:</strong> Flexibility in model architecture</li>
                     <li><strong>Rich Ecosystem:</strong> Pre-built models, datasets, and utilities</li>
                 </ul>
-                
+
                 <h3>Your First Tensor</h3>
                 <div class="code-block">
                     <div class="code-header">
@@ -98,7 +102,8 @@ print(f"Device: {x.device}")
                 </div>
 
                 <div class="info-box">
-                    <strong>💡 Try it:</strong> Copy this code and run it in your Python environment to see tensors in action!
+                    <strong>💡 Try it:</strong> Copy this code and run it in your Python environment to see tensors in
+                    action!
                 </div>
 
                 <h3>Tensor Operations</h3>
@@ -135,7 +140,8 @@ print(C.shape)  # torch.Size([3, 2])</code></pre>
             <h2 class="section-title">Autograd: Automatic Differentiation</h2>
             <div class="content-card">
                 <h3>How Autograd Works</h3>
-                <p>PyTorch's autograd system automatically computes gradients by building a computational graph. Every operation on tensors with <code>requires_grad=True</code> is tracked.</p>
+                <p>PyTorch's autograd system automatically computes gradients by building a computational graph. Every
+                    operation on tensors with <code>requires_grad=True</code> is tracked.</p>
 
                 <div class="visualization-box">
                     <h4>Computational Graph Visualization</h4>
@@ -143,49 +149,56 @@ print(C.shape)  # torch.Size([3, 2])</code></pre>
                         <svg width="100%" height="300" viewBox="0 0 600 300">
                             <!-- Input -->
                             <g class="node" data-step="0">
-                                <circle cx="100" cy="150" r="30" fill="#a855f7" opacity="0.2"/>
-                                <circle cx="100" cy="150" r="25" fill="#a855f7"/>
+                                <circle cx="100" cy="150" r="30" fill="#a855f7" opacity="0.2" />
+                                <circle cx="100" cy="150" r="25" fill="#a855f7" />
                                 <text x="100" y="155" text-anchor="middle" fill="white" font-size="14">x</text>
                                 <text x="100" y="200" text-anchor="middle" fill="#a855f7" font-size="12">Input</text>
                             </g>
-                            
+
                             <!-- Operation 1: x² -->
                             <g class="node" data-step="1">
-                                <line x1="130" y1="150" x2="220" y2="150" stroke="#06b6d4" stroke-width="2" opacity="0.5"/>
-                                <circle cx="250" cy="150" r="30" fill="#06b6d4" opacity="0.2"/>
-                                <circle cx="250" cy="150" r="25" fill="#06b6d4"/>
+                                <line x1="130" y1="150" x2="220" y2="150" stroke="#06b6d4" stroke-width="2"
+                                    opacity="0.5" />
+                                <circle cx="250" cy="150" r="30" fill="#06b6d4" opacity="0.2" />
+                                <circle cx="250" cy="150" r="25" fill="#06b6d4" />
                                 <text x="250" y="155" text-anchor="middle" fill="white" font-size="14">x²</text>
                                 <text x="250" y="200" text-anchor="middle" fill="#06b6d4" font-size="12">Square</text>
                             </g>
-                            
+
                             <!-- Operation 2: +3 -->
                             <g class="node" data-step="2">
-                                <line x1="280" y1="150" x2="370" y2="150" stroke="#10b981" stroke-width="2" opacity="0.5"/>
-                                <circle cx="400" cy="150" r="30" fill="#10b981" opacity="0.2"/>
-                                <circle cx="400" cy="150" r="25" fill="#10b981"/>
+                                <line x1="280" y1="150" x2="370" y2="150" stroke="#10b981" stroke-width="2"
+                                    opacity="0.5" />
+                                <circle cx="400" cy="150" r="30" fill="#10b981" opacity="0.2" />
+                                <circle cx="400" cy="150" r="25" fill="#10b981" />
                                 <text x="400" y="155" text-anchor="middle" fill="white" font-size="14">+3</text>
                                 <text x="400" y="200" text-anchor="middle" fill="#10b981" font-size="12">Add</text>
                             </g>
-                            
+
                             <!-- Output -->
                             <g class="node" data-step="3">
-                                <line x1="430" y1="150" x2="470" y2="150" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
-                                <circle cx="500" cy="150" r="30" fill="#f59e0b" opacity="0.2"/>
-                                <circle cx="500" cy="150" r="25" fill="#f59e0b"/>
+                                <line x1="430" y1="150" x2="470" y2="150" stroke="#f59e0b" stroke-width="2"
+                                    opacity="0.5" />
+                                <circle cx="500" cy="150" r="30" fill="#f59e0b" opacity="0.2" />
+                                <circle cx="500" cy="150" r="25" fill="#f59e0b" />
                                 <text x="500" y="155" text-anchor="middle" fill="white" font-size="14">y</text>
                                 <text x="500" y="200" text-anchor="middle" fill="#f59e0b" font-size="12">Output</text>
                             </g>
-                            
+
                             <!-- Gradient flow (backward) -->
                             <g class="gradient-flow" style="opacity: 0;">
-                                <path d="M 470 140 L 430 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                <path d="M 370 140 L 280 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                <path d="M 220 140 L 130 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 470 140 L 430 140" stroke="#ef4444" stroke-width="3" fill="none"
+                                    marker-end="url(#arrowhead)" />
+                                <path d="M 370 140 L 280 140" stroke="#ef4444" stroke-width="3" fill="none"
+                                    marker-end="url(#arrowhead)" />
+                                <path d="M 220 140 L 130 140" stroke="#ef4444" stroke-width="3" fill="none"
+                                    marker-end="url(#arrowhead)" />
                             </g>
-                            
+
                             <defs>
-                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                                    <polygon points="0 0, 10 3, 0 6" fill="#ef4444"/>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
+                                    orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#ef4444" />
                                 </marker>
                             </defs>
                         </svg>
@@ -240,7 +253,9 @@ print(f"dy/db = {b.grad}")  # 1.0 (constant)</code></pre>
                 </div>
 
                 <div class="warning-box">
-                    <strong>⚠️ Common Pitfall:</strong> Gradients accumulate! Always call <code>optimizer.zero_grad()</code> or <code>tensor.grad.zero_()</code> before computing new gradients.
+                    <strong>⚠️ Common Pitfall:</strong> Gradients accumulate! Always call
+                    <code>optimizer.zero_grad()</code> or <code>tensor.grad.zero_()</code> before computing new
+                    gradients.
                 </div>
 
                 <h3>Gradient Accumulation Demo</h3>
@@ -282,7 +297,8 @@ print(f"Fresh gradient: {x.grad}")  # 12.0</code></pre>
             <h2 class="section-title">Custom nn.Modules</h2>
             <div class="content-card">
                 <h3>Building Blocks of PyTorch Models</h3>
-                <p>All neural network components in PyTorch inherit from <code>nn.Module</code>. This provides automatic parameter tracking, GPU movement, and more.</p>
+                <p>All neural network components in PyTorch inherit from <code>nn.Module</code>. This provides automatic
+                    parameter tracking, GPU movement, and more.</p>
 
                 <h3>Anatomy of nn.Module</h3>
                 <div class="code-block">
@@ -452,7 +468,8 @@ output = model(x)  # Works!</code></pre>
                 </div>
 
                 <div class="warning-box">
-                    <strong>⚠️ Important:</strong> Tensors on different devices cannot interact! Always ensure model and input are on the same device.
+                    <strong>⚠️ Important:</strong> Tensors on different devices cannot interact! Always ensure model and
+                    input are on the same device.
                 </div>
 
                 <h3>Best Practices</h3>
@@ -508,7 +525,8 @@ predictions = model(test_x.to(device)).cpu().numpy()</code></pre>
             <h2 class="section-title">Backpropagation Theory</h2>
             <div class="content-card">
                 <h3>The Chain Rule</h3>
-                <p>Backpropagation is just the chain rule applied to neural networks. It computes gradients efficiently by reusing intermediate results.</p>
+                <p>Backpropagation is just the chain rule applied to neural networks. It computes gradients efficiently
+                    by reusing intermediate results.</p>
 
                 <div class="visualization-box">
                     <h4>Gradient Flow Visualization</h4>
@@ -614,7 +632,8 @@ print(f"∂L/∂w2 = {model.w2.grad}")</code></pre>
                 </div>
 
                 <h3>Loss Landscapes</h3>
-                <p>The loss landscape shows how the loss changes with different parameter values. Optimizers navigate this landscape to find minima.</p>
+                <p>The loss landscape shows how the loss changes with different parameter values. Optimizers navigate
+                    this landscape to find minima.</p>
 
                 <div class="visualization-box">
                     <h4>2D Loss Landscape</h4>
@@ -638,7 +657,8 @@ print(f"∂L/∂w2 = {model.w2.grad}")</code></pre>
             <h2 class="section-title">Optimizers (AdamW)</h2>
             <div class="content-card">
                 <h3>What Are Optimizers?</h3>
-                <p>Optimizers update model parameters based on gradients to minimize the loss function. Different optimizers use different strategies.</p>
+                <p>Optimizers update model parameters based on gradients to minimize the loss function. Different
+                    optimizers use different strategies.</p>
 
                 <h3>Common Optimizers</h3>
                 <div class="optimizer-comparison">
@@ -753,7 +773,9 @@ for epoch in range(100):
             <h2 class="section-title">🎯 Main Project: MLP from Scratch</h2>
             <div class="content-card">
                 <h3>Project Goal</h3>
-                <p class="project-goal">Build a Multi-Layer Perceptron to classify MNIST handwritten digits <strong>without using nn.Linear</strong>. You'll implement everything using <code>nn.Parameter</code> and matrix multiplication.</p>
+                <p class="project-goal">Build a Multi-Layer Perceptron to classify MNIST handwritten digits
+                    <strong>without using nn.Linear</strong>. You'll implement everything using
+                    <code>nn.Parameter</code> and matrix multiplication.</p>
 
                 <div class="project-specs">
                     <h4>Specifications</h4>
@@ -984,7 +1006,8 @@ print('\nModel saved to mnist_mlp.pth')</code></pre>
 
                 <h3>Complete Code Download</h3>
                 <div class="download-section">
-                    <p>Copy all the code above into a single Python file and run it! Make sure you have PyTorch and torchvision installed:</p>
+                    <p>Copy all the code above into a single Python file and run it! Make sure you have PyTorch and
+                        torchvision installed:</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Bash</span>
@@ -1006,7 +1029,7 @@ print('\nModel saved to mnist_mlp.pth')</code></pre>
             <h2 class="section-title">Exercises & Challenges</h2>
             <div class="content-card">
                 <h3>Test Your Knowledge</h3>
-                
+
                 <div class="exercise-card">
                     <h4>Exercise 1: Gradient Debugging</h4>
                     <p>What's wrong with this code?</p>
@@ -1020,7 +1043,8 @@ print(x.grad)  # What will this print?</code></pre>
                     </div>
                     <details>
                         <summary>Show Answer</summary>
-                        <p>The gradient will be accumulated! It will print the sum of gradients from both backward passes. You need to call <code>x.grad.zero_()</code> between the two backward passes.</p>
+                        <p>The gradient will be accumulated! It will print the sum of gradients from both backward
+                            passes. You need to call <code>x.grad.zero_()</code> between the two backward passes.</p>
                     </details>
                 </div>
 
@@ -1076,7 +1100,8 @@ print(x.grad)  # What will this print?</code></pre>
 
                 <div class="exercise-card">
                     <h4>Challenge: Implement He Initialization</h4>
-                    <p>Modify <code>ManualLinear</code> to use He initialization instead of Xavier. He initialization is better for ReLU activations.</p>
+                    <p>Modify <code>ManualLinear</code> to use He initialization instead of Xavier. He initialization is
+                        better for ReLU activations.</p>
                     <details>
                         <summary>Show Solution</summary>
                         <div class="code-block">
@@ -1092,7 +1117,8 @@ print(x.grad)  # What will this print?</code></pre>
     def forward(self, x):
         return x @ self.weight.T + self.bias</code></pre>
                         </div>
-                        <p>He initialization uses <code>sqrt(2/n_in)</code> instead of <code>sqrt(2/n_in)</code> for Xavier.</p>
+                        <p>He initialization uses <code>sqrt(2/n_in)</code> instead of <code>sqrt(2/n_in)</code> for
+                            Xavier.</p>
                     </details>
                 </div>
 
@@ -1152,6 +1178,62 @@ print(x.grad)  # What will this print?</code></pre>
         </footer>
     </main>
 
+    <!-- Python Terminal -->
+    <div class="python-terminal" id="python-terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">
+                <span class="terminal-icon">🐍</span>
+                <span>Python Terminal</span>
+                <span class="terminal-status" id="terminal-status">Loading...</span>
+            </div>
+            <div class="terminal-controls">
+                <button class="terminal-btn" id="minimize-terminal" title="Minimize">−</button>
+                <button class="terminal-btn" id="close-terminal" title="Close">×</button>
+            </div>
+        </div>
+        <div class="terminal-body">
+            <div class="terminal-info">
+                <p><strong>💡 Quick Start:</strong> Try basic Python code! For heavy training (MNIST, etc.), use your
+                    local setup or <a href="https://colab.research.google.com/" target="_blank">Google Colab</a>.</p>
+                <p><strong>Supported:</strong> Basic Python, NumPy operations, simple math</p>
+            </div>
+            <div class="terminal-editor">
+                <textarea id="python-code" class="code-input" placeholder="# Write Python code here
+# Example:
+import numpy as np
+x = np.array([1, 2, 3])
+print(x * 2)
+
+# Note: For PyTorch training, use local setup or Colab"></textarea>
+            </div>
+            <div class="terminal-actions">
+                <button class="run-btn" id="run-code">
+                    <span class="btn-icon">▶</span> Run Code (Ctrl+Enter)
+                </button>
+                <button class="clear-btn" id="clear-output">Clear Output</button>
+                <select id="example-snippets" class="snippet-select">
+                    <option value="">Load Example...</option>
+                    <option value="hello">Hello World</option>
+                    <option value="numpy">NumPy Arrays</option>
+                    <option value="math">Math Operations</option>
+                    <option value="loops">Loops & Lists</option>
+                </select>
+            </div>
+            <div class="terminal-output" id="terminal-output">
+                <div class="output-placeholder">Output will appear here...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Toggle Button -->
+    <button class="terminal-toggle" id="terminal-toggle" title="Open Python Terminal">
+        <span>🐍</span>
+        <span>Python Terminal</span>
+    </button>
+
+    <!-- Load Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
