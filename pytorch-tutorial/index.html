@@ -30,7 +30,9 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="#intro" data-section="intro">Introduction</a></li>
+            <li><a href="../index.html" class="hub-link">🏠 Learning Portal</a></li>
+            <li class="nav-divider"></li>
+            <li><a href="#intro" data-section="intro" class="active">Introduction</a></li>
             <li><a href="#autograd" data-section="autograd">Autograd</a></li>
             <li><a href="#modules" data-section="modules">Custom Modules</a></li>
             <li><a href="#gpu" data-section="gpu">GPU Tensors</a></li>
@@ -38,6 +40,8 @@
             <li><a href="#optimizers" data-section="optimizers">Optimizers</a></li>
             <li><a href="#mlp-project" data-section="mlp-project">MLP Project</a></li>
             <li><a href="#exercises" data-section="exercises">Exercises</a></li>
+            <li class="nav-divider"></li>
+            <li><a href="../llm-foundations/index.html" style="color: var(--accent-cyan);">🚀 Switch to Week 2</a></li>
         </ul>
     </nav>
 
@@ -775,7 +779,8 @@ for epoch in range(100):
                 <h3>Project Goal</h3>
                 <p class="project-goal">Build a Multi-Layer Perceptron to classify MNIST handwritten digits
                     <strong>without using nn.Linear</strong>. You'll implement everything using
-                    <code>nn.Parameter</code> and matrix multiplication.</p>
+                    <code>nn.Parameter</code> and matrix multiplication.
+                </p>
 
                 <div class="project-specs">
                     <h4>Specifications</h4>
