@@ -22,35 +22,32 @@ This repository documents my journey to become proficient in modern AI/ML techno
 **Status**: Completed  
 **Location**: [`pytorch-tutorial/`](./pytorch-tutorial)
 
-**What I Learned:**
+#### Week 1: PyTorch Mastery ✅
 - Autograd and automatic differentiation
 - Custom nn.Modules with nn.Parameter
 - GPU tensor handling
 - Backpropagation and optimizers (AdamW)
 - Built an MLP from scratch for MNIST (97-98% accuracy)
-
-**Key Achievement**: Can write PyTorch training loops without documentation
+- **Key Achievement**: Created an interactive Pyodide-powered tutorial and terminal.
 
 ---
 
 ### Phase 2: Large Language Models (LLMs) 🎯
-**Status**: Planned  
-**Location**: `llm-foundations/` (coming soon)
+**Status**: In Progress  
+**Location**: `llm-foundations/` (starting now)
 
-**Learning Objectives:**
-- Transformer architecture deep dive
-- Attention mechanisms (self-attention, multi-head attention)
-- Positional encodings
+#### Week 2: The Transformer Architecture (The Engine) 🎯
+- **Focus**: Self-Attention mechanism, Multi-Head Attention, and Positional Encoding.
+- **Theory**: "Attention Is All You Need" (Vaswani et al.). Understand the Q, K, V mechanism intuitively.
+- **Resource**: [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) by Jay Alammar.
+- **Coding Exercise**: Implement a single `TransformerBlock` class from scratch (`LayerNorm` -> `SelfAttention` -> `FeedForward`).
+- **Milestone**: Understand how information flows between tokens without recurrence.
+
+#### Week 3 & Beyond: GPT and Fine-Tuning 🎯
 - Tokenization and embeddings
 - Training techniques (teacher forcing, beam search)
-- Fine-tuning and transfer learning
 - Building a GPT-style model from scratch
-
-**Planned Projects:**
-- Implement transformer from scratch
-- Build a character-level language model
-- Create a small-scale GPT model
-- Fine-tune pre-trained models
+- Fine-tuning pre-trained models
 
 ---
 
@@ -58,45 +55,23 @@ This repository documents my journey to become proficient in modern AI/ML techno
 **Status**: Planned  
 **Location**: `diffusion-models/` (coming soon)
 
-**Learning Objectives:**
-- Diffusion process (forward and reverse)
-- Denoising techniques
-- U-Net architecture
-- Noise scheduling
-- Conditional generation
-- Latent diffusion models
-- Building a diffusion model from scratch
-
-**Planned Projects:**
-- Implement DDPM (Denoising Diffusion Probabilistic Models)
-- Create a simple image generator
-- Build a conditional diffusion model
-- Experiment with latent diffusion
-
 ---
 
 ### Phase 4: Advanced Topics & Model Creation 🎯
 **Status**: Future  
 **Location**: `custom-models/` (coming soon)
 
-**Learning Objectives:**
-- Novel architecture design
-- Hybrid models (combining transformers + diffusion)
-- Efficient training techniques
-- Model optimization and deployment
-- Research paper implementation
-
 ## 📂 Repository Structure
 
 ```
 Learning/
-├── pytorch-tutorial/          # ✅ Phase 1: PyTorch Fundamentals
+├── pytorch-tutorial/          # ✅ Week 1: PyTorch Fundamentals
 │   ├── index.html            # Interactive tutorial
 │   ├── style.css             # Premium UI design
 │   ├── script.js             # Interactive features
 │   └── README.md             # Project documentation
 │
-├── llm-foundations/          # 🎯 Phase 2: LLM Learning (Coming Soon)
+├── llm-foundations/          # 🎯 Week 2+: LLM Learning (Starting)
 │   └── ...
 │
 ├── diffusion-models/         # 🎯 Phase 3: Diffusion Models (Coming Soon)
