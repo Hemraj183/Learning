@@ -47,7 +47,19 @@ python generate_website_v2.py
 
 ---
 
-## 🎯 The 12-Week Architecture
+## � Global Access (Host it Everywhere)
+You can host this platform for **FREE** using GitHub Pages so you can access it from your phone, tablet, or any computer:
+
+1. Go to your repository on GitHub: **[Hemraj183/Learning](https://github.com/Hemraj183/Learning)**
+2. Click on **Settings** (top tab).
+3. Click on **Pages** (left sidebar).
+4. Under **Branch**, select `master` and the folder `/(root)`.
+5. Click **Save**.
+6. GitHub will provide a link like: `https://hemraj183.github.io/Learning/`
+
+---
+
+## �🎯 The 12-Week Architecture
 
 ### Month 1: LLM Foundations 🧠
 1. **Week 1: PyTorch Foundations** - Tensors, Autograd, and building MLPs from scratch.

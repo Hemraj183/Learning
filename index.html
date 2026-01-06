@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning Mastery | Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --primary: #8b5cf6;
+            --secondary: #06b6d4;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .loader {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+    </style>
+    <script>
+        // Optional: Auto-redirect after 3 seconds
+        setTimeout(() => {
+            window.location.href = "interactive_platform/index.html";
+        }, 2000);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to PyTorch Mastery</h1>
+        <p>Your 12-week deep learning adventure is ready.</p>
+        <a href="interactive_platform/index.html" class="btn">Launch Interactive Platform</a>
+        <div class="loader">Jumping to dashboard in 2s...</div>
+    </div>
+</body>
+
+</html>
