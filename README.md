@@ -20,6 +20,22 @@ Launch it by opening:
 
 ---
 
+## 🚀 Getting Started
+
+### 1. Run the Interactive Platform
+The easiest way to explore the curriculum is to open the local dashboard:
+- Simply double-click **[`interactive_platform/index.html`](./interactive_platform/index.html)** in your file explorer.
+- No local server (Node.js/Python) is required—it runs entirely in your browser using Vanilla JS.
+
+### 2. Regenerate the Site (Optional)
+If you modify the curriculum data in `generate_website_v2.py`, you can regenerate the entire platform:
+```bash
+python generate_website_v2.py
+```
+*Note: Requires Python 3.x.*
+
+---
+
 ## 🎯 The 12-Week Architecture
 
 ### Month 1: LLM Foundations 🧠
