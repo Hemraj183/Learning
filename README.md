@@ -22,17 +22,28 @@ Launch it by opening:
 
 ## 🚀 Getting Started
 
-### 1. Run the Interactive Platform
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Hemraj183/Learning.git
+cd Learning
+```
+
+### 2. Install Dependencies
+To run the code implementations locally (not required for the interactive web UI), install the Python requirements:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Interactive Platform
 The easiest way to explore the curriculum is to open the local dashboard:
 - Simply double-click **[`interactive_platform/index.html`](./interactive_platform/index.html)** in your file explorer.
 - No local server (Node.js/Python) is required—it runs entirely in your browser using Vanilla JS.
 
-### 2. Regenerate the Site (Optional)
+### 4. Regenerate the Site (Optional)
 If you modify the curriculum data in `generate_website_v2.py`, you can regenerate the entire platform:
 ```bash
 python generate_website_v2.py
 ```
-*Note: Requires Python 3.x.*
 
 ---
 
