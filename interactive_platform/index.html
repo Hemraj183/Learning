@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mastery Course - Interactive Platform</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --accent: #6366f1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #818cf8;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .week-tag {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        h3 {
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🚀 12-Week AI Mastery Course</h1>
+
+    <div class="grid">
+        <!-- Week 1 -->
+        <div class="card">
+            <span class="week-tag">Week 1</span>
+            <h3>PyTorch Foundations</h3>
+            <p>Master Tensors, Autograd, and build your first Neural Network from scratch.</p>
+            <div class="actions">
+                <a href="modules/week1_pytorch/index.html" class="btn-primary">Interactive Module</a>
+            </div>
+        </div>
+
+        <!-- Week 2 -->
+        <div class="card">
+            <span class="week-tag">Week 2</span>
+            <h3>Transformer Architecture</h3>
+            <p>Visualize Self-Attention and build the Transformer Block.</p>
+            <div class="actions">
+                <a href="modules/week2_transformer/index.html" class="btn-primary">Attention Viz</a>
+            </div>
+        </div>
+
+        <!-- Week 3 -->
+        <div class="card">
+            <span class="week-tag">Week 3</span>
+            <h3>LLM Variants</h3>
+            <p>Explore Tokenization (BPE) and GPT-2 Latent Spaces.</p>
+            <div class="actions">
+                <a href="modules/week3_llm_variants/index.html" class="btn-primary">Tokenizer Lab</a>
+            </div>
+        </div>
+
+        <!-- Week 4 -->
+        <div class="card">
+            <span class="week-tag">Week 4</span>
+            <h3>Router Networks</h3>
+            <p>Capstone: Routing queries to expert models.</p>
+            <div class="actions">
+                <a href="modules/week4_router/index.html" class="btn-primary">Router Demo</a>
+            </div>
+        </div>
+
+        <!-- Week 5 -->
+        <div class="card">
+            <span class="week-tag">Week 5</span>
+            <h3>Diffusion Math</h3>
+            <p>Understanding the Forward Process (Adding Noise).</p>
+            <div class="actions">
+                <a href="modules/week5_diffusion/index.html" class="btn-primary">Noise Slider</a>
+            </div>
+        </div>
+
+        <!-- Week 6 -->
+        <div class="card">
+            <span class="week-tag">Week 6</span>
+            <h3>U-Net Architecture</h3>
+            <p>Visualizing Skip Connections and Downsampling.</p>
+            <div class="actions">
+                <a href="modules/week6_unet/index.html" class="btn-primary">U-Net Vis</a>
+            </div>
+        </div>
+
+        <!-- Week 7 -->
+        <div class="card">
+            <span class="week-tag">Week 7</span>
+            <h3>Latent Diffusion</h3>
+            <p>Interpolating between concepts in Latent Space.</p>
+            <div class="actions">
+                <a href="modules/week7_ldm/index.html" class="btn-primary">Latent Space</a>
+            </div>
+        </div>
+
+        <!-- Week 8 -->
+        <div class="card">
+            <span class="week-tag">Week 8</span>
+            <h3>Capstone: Noisy Router</h3>
+            <p>A system that chooses between a Diffusion Artist and a Critic.</p>
+            <div class="actions">
+                <a href="modules/week8_capstone/index.html" class="btn-primary">Router Demo</a>
+            </div>
+        </div>
+
+        <!-- Week 9 -->
+        <div class="card">
+            <span class="week-tag">Week 9</span>
+            <h3>LoRA & PEFT</h3>
+            <p>Efficient Fine-Tuning with Low-Rank Adapters.</p>
+            <div class="actions">
+                <a href="modules/week9_lora/index.html" class="btn-primary">LoRA Viz</a>
+            </div>
+        </div>
+
+        <!-- Week 10 -->
+        <div class="card">
+            <span class="week-tag">Week 10</span>
+            <h3>Mixture of Experts</h3>
+            <p>Sparse Expert models and Token Routing.</p>
+            <div class="actions">
+                <a href="modules/week10_moe/index.html" class="btn-primary">MoE Router</a>
+            </div>
+        </div>
+
+        <!-- Week 11 -->
+        <div class="card">
+            <span class="week-tag">Week 11</span>
+            <h3>Optimization</h3>
+            <p>Quantization (FP32 vs INT8) for inference speed.</p>
+            <div class="actions">
+                <a href="modules/week11_opt/index.html" class="btn-primary">Speed Test</a>
+            </div>
+        </div>
+
+        <!-- Week 12 -->
+        <div class="card">
+            <span class="week-tag">Week 12</span>
+            <h3>Final Capstone</h3>
+            <p>The Ultimate Assistant: Modular, Efficient, Powerful.</p>
+            <div class="actions">
+                <a href="modules/week12_capstone/index.html" class="btn-primary">Enter The Brain</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const weeks = [
+                'week1_pytorch', 'week2_transformer', 'week3_llm_variants', 'week4_router',
+                'week5_diffusion', 'week6_unet', 'week7_ldm', 'week8_capstone',
+                'week9_lora', 'week10_moe', 'week11_opt', 'week12_capstone'
+            ];
+
+            weeks.forEach((week, index) => {
+                const status = localStorage.getItem(`status_${week}`);
+                if (status === 'done') {
+                    // Find the card (assuming order matches)
+                    const cards = document.querySelectorAll('.card');
+                    if (cards[index]) {
+                        cards[index].style.borderColor = '#10b981'; // Green border
+                        const badge = document.createElement('span');
+                        badge.textContent = ' ✅ Completed';
+                        badge.style.color = '#10b981';
+                        badge.style.marginLeft = '10px';
+                        badge.style.fontSize = '12px';
+                        cards[index].querySelector('h3').appendChild(badge);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

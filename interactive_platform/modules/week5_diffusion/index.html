@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: Diffusion Math | Deep Learning Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Global Progress Tracker (Hidden Metadata) -->
+    <div id="course-metadata" data-current-week="week5_diffusion" style="display:none;"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Diffusion Basics</h2>
+            <div class="progress-container">
+                 <div class="progress-bar"><div class="progress-fill" id="page-progress"></div></div>
+                 <span class="progress-text" id="progress-text">0% Complete</span>
+            </div>
+            <a href="../../index.html" class="back-link">← Course Dashboard</a>
+        </div>
+        
+        <div class="nav-scroll-area">
+            <h3 class="nav-section-title">This Module</h3>
+            <ul class="nav-links local-nav">
+                <li><a href="#intro">📖 Introduction</a></li>
+                <li><a href="#theory">🧠 Theory & Math</a></li>
+                <li><a href="#interactive">🔬 Interactive Lab</a></li>
+                <li><a href="#code">💻 Implementation</a></li>
+                <li><a href="#project">🎯 Project</a></li>
+            </ul>
+
+            <h3 class="nav-section-title" style="margin-top:20px;">Course Map</h3>
+            <ul class="nav-links global-nav">
+                <li><a href="../week1_pytorch/index.html" class="week-link" data-week="week1_pytorch">Week 1: PyTorch</a></li>
+                <li><a href="../week2_transformer/index.html" class="week-link" data-week="week2_transformer">Week 2: Transformers</a></li>
+                <li><a href="../week3_llm_variants/index.html" class="week-link" data-week="week3_llm_variants">Week 3: LLMs</a></li>
+                <li><a href="../week4_router/index.html" class="week-link" data-week="week4_router">Week 4: Router</a></li>
+                <li><a href="../week5_diffusion/index.html" class="week-link" data-week="week5_diffusion">Week 5: Diffusion</a></li>
+                <li><a href="../week6_unet/index.html" class="week-link" data-week="week6_unet">Week 6: U-Net</a></li>
+                <li><a href="../week7_ldm/index.html" class="week-link" data-week="week7_ldm">Week 7: Latent Diff.</a></li>
+                <li><a href="../week8_capstone/index.html" class="week-link" data-week="week8_capstone">Week 8: Capstone</a></li>
+                <li><a href="../week9_lora/index.html" class="week-link" data-week="week9_lora">Week 9: LoRA</a></li>
+                <li><a href="../week10_moe/index.html" class="week-link" data-week="week10_moe">Week 10: MoE</a></li>
+                <li><a href="../week11_opt/index.html" class="week-link" data-week="week11_opt">Week 11: Opt</a></li>
+                <li><a href="../week12_capstone/index.html" class="week-link" data-week="week12_capstone">Week 12: Final</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- Hero -->
+        <section id="intro" class="hero-section">
+            <h1 class="gradient-text">Week 5: Diffusion Math</h1>
+            <p class="subtitle">From Noise to Clarity: Understanding the Forward and Reverse Processes.</p>
+            <div class="content-card">
+                <h3>Overview</h3>
+                <p>Diffusion models (like DALL-E 2 and Stable Diffusion) work by destroying data with noise and learning to repair it. This week covers the fundamental probability theory and the <strong>Reparameterization Trick</strong>.</p>
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-intro" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-intro">I understand the goals of this week</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theory -->
+        <section id="theory" class="section">
+            <h2 class="section-title">Theory & Concepts</h2>
+            
+        <div class="content-card">
+            <h3>The Forward Process (q)</h3>
+            <p>We gradually add Gaussian noise. The amount of noise at step t is controlled by a variance schedule β_t.</p>
+            <div class="code-block">x_t = √(1 - β_t) * x_{t-1} + √(β_t) * ε</div>
+            <p>Crucially, we can jump to step t in one go:</p>
+            <div class="code-block">x_t = √(α_bar) * x_0 + √(1 - α_bar) * ε</div>
+        </div>
+        <div class="content-card">
+            <h3>The Reverse Process (p)</h3>
+            <p>We train a neural network to predict the noise <code>ε</code> that was added. If we can subtract the noise, we recover the image.</p>
+        </div>
+        
+             <div class="content-card">
+                 <h3>Concept Check</h3>
+                 <p>Make sure you grasp the core equations before moving to code.</p>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-theory" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-theory">I have reviewed the theoretical foundations</label>
+                </div>
+             </div>
+        </section>
+
+        <!-- Interactive -->
+        <section id="interactive" class="section">
+            <h2 class="section-title">Interactive Lab: Noise Schedule</h2>
+            <div class="content-card viz-card">
+                <p>Slide t from 0 to 1000 to see how the signal is destroyed.</p>
+                <div class="viz-container" id="viz-container">
+                    <input type="range" min="0" max="100" value="0" oninput="draw(this.value)" style="width:100%"><canvas id="c" width="200" height="200" style="background:#fff; margin-top:20px; border-radius:8px;"></canvas>
+                </div>
+                <div class="info-box"><strong>💡 Experiment:</strong> Try different values to see how the system reacts in real-time.</div>
+            </div>
+        </section>
+
+        <!-- Implementation -->
+        <section id="code" class="section">
+            <h2 class="section-title">Code Implementation</h2>
+            <div class="content-card">
+                <h3>Core Logic</h3>
+                <p>Below is the critical implementation from <code>project.py</code>. Analyze how the theory transforms into PyTorch code.</p>
+                <div class="code-block">
+                    <div class="code-header">Python <button class="copy-btn" onclick="copyCode()">Copy</button></div>
+                    <pre><code id="main-code">def q_sample(self, x_start, t, noise=None):
+    if noise is None:
+        noise = torch.randn_like(x_start)
+        
+    sqrt_alpha_cumprod_t = self.sqrt_alphas_cumprod[t]
+    sqrt_one_minus_alpha_cumprod_t = self.sqrt_one_minus_alphas_cumprod[t]
+    
+    return sqrt_alpha_cumprod_t * x_start +            sqrt_one_minus_alpha_cumprod_t * noise</code></pre>
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-code" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-code">I understand the code implementation</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Project -->
+        <section id="project" class="section">
+             <h2 class="section-title">Weekly Project</h2>
+             <div class="content-card">
+                <h3>Diffusion Scheduler</h3>
+                <p>Implement the noise schedules and samplers.</p>
+                <div class="project-specs">
+                    <h4>Step-by-Step Implementation</h4>
+                    <ul class="checklist">
+                        
+            <li>Implement linear beta schedule.</li>
+            <li>Pre-compute alpha bars.</li>
+            <li>Create the <code>q_sample</code> function (Forward process).</li>
+            <li>Visualize the degradation of an image over timesteps.</li>
+        
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <strong>🚀 Challenge:</strong> Can you optimize this further? Check the <code>exercises.py</code> file for bonus tasks.
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-project" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-project">I have completed the weekly project</label>
+                </div>
+             </div>
+        </section>
+
+        <footer>
+            <div class="nav-buttons">
+                <a href="../../modules/week4_router/index.html" class="btn-secondary">← Previous Week</a>
+                <a href="../../modules/week6_unet/index.html" class="btn-primary">Next Week →</a>
+            </div>
+            <p style="margin-top: 40px; color: var(--text-muted);">Antigravity Learning System &copy; 2026</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Global Progress Logic
+        const CURRENT_WEEK = "week5_diffusion";
+        
+        function updateProgress() {
+            const checks = document.querySelectorAll('.checkpoint-input');
+            const checked = document.querySelectorAll('.checkpoint-input:checked');
+            const progress = (checked.length / checks.length) * 100;
+            
+            document.getElementById('page-progress').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `${Math.round(progress)}% Complete`;
+            
+            // Save to localStorage
+            const state = {};
+            checks.forEach(c => state[c.id] = c.checked);
+            localStorage.setItem(`progress_${CURRENT_WEEK}`, JSON.stringify(state));
+            
+            // Mark week as done if > 90%
+            if (progress > 90) {
+                localStorage.setItem(`status_${CURRENT_WEEK}`, 'done');
+            }
+        }
+
+        function loadProgress() {
+             const saved = JSON.parse(localStorage.getItem(`progress_${CURRENT_WEEK}`));
+             if (saved) {
+                 Object.keys(saved).forEach(id => {
+                     const el = document.getElementById(id);
+                     if(el) el.checked = saved[id];
+                 });
+                 updateProgress();
+             }
+             
+             // Update sidebar ticks
+             document.querySelectorAll('.week-link').forEach(link => {
+                 const week = link.getAttribute('data-week');
+                 if (localStorage.getItem(`status_${week}`) === 'done') {
+                     link.classList.add('done-week');
+                 }
+                 if (week === CURRENT_WEEK) link.classList.add('active-week');
+             });
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('main-code').innerText;
+            navigator.clipboard.writeText(code);
+            alert('Code copied!');
+        }
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>

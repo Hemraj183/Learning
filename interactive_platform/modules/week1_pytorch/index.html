@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: PyTorch Foundations | Deep Learning Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Global Progress Tracker (Hidden Metadata) -->
+    <div id="course-metadata" data-current-week="week1_pytorch" style="display:none;"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>PyTorch Basics</h2>
+            <div class="progress-container">
+                 <div class="progress-bar"><div class="progress-fill" id="page-progress"></div></div>
+                 <span class="progress-text" id="progress-text">0% Complete</span>
+            </div>
+            <a href="../../index.html" class="back-link">← Course Dashboard</a>
+        </div>
+        
+        <div class="nav-scroll-area">
+            <h3 class="nav-section-title">This Module</h3>
+            <ul class="nav-links local-nav">
+                <li><a href="#intro">📖 Introduction</a></li>
+                <li><a href="#theory">🧠 Theory & Math</a></li>
+                <li><a href="#interactive">🔬 Interactive Lab</a></li>
+                <li><a href="#code">💻 Implementation</a></li>
+                <li><a href="#project">🎯 Project</a></li>
+            </ul>
+
+            <h3 class="nav-section-title" style="margin-top:20px;">Course Map</h3>
+            <ul class="nav-links global-nav">
+                <li><a href="../week1_pytorch/index.html" class="week-link" data-week="week1_pytorch">Week 1: PyTorch</a></li>
+                <li><a href="../week2_transformer/index.html" class="week-link" data-week="week2_transformer">Week 2: Transformers</a></li>
+                <li><a href="../week3_llm_variants/index.html" class="week-link" data-week="week3_llm_variants">Week 3: LLMs</a></li>
+                <li><a href="../week4_router/index.html" class="week-link" data-week="week4_router">Week 4: Router</a></li>
+                <li><a href="../week5_diffusion/index.html" class="week-link" data-week="week5_diffusion">Week 5: Diffusion</a></li>
+                <li><a href="../week6_unet/index.html" class="week-link" data-week="week6_unet">Week 6: U-Net</a></li>
+                <li><a href="../week7_ldm/index.html" class="week-link" data-week="week7_ldm">Week 7: Latent Diff.</a></li>
+                <li><a href="../week8_capstone/index.html" class="week-link" data-week="week8_capstone">Week 8: Capstone</a></li>
+                <li><a href="../week9_lora/index.html" class="week-link" data-week="week9_lora">Week 9: LoRA</a></li>
+                <li><a href="../week10_moe/index.html" class="week-link" data-week="week10_moe">Week 10: MoE</a></li>
+                <li><a href="../week11_opt/index.html" class="week-link" data-week="week11_opt">Week 11: Opt</a></li>
+                <li><a href="../week12_capstone/index.html" class="week-link" data-week="week12_capstone">Week 12: Final</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- Hero -->
+        <section id="intro" class="hero-section">
+            <h1 class="gradient-text">Week 1: PyTorch Foundations</h1>
+            <p class="subtitle">Tensors, Autograd, and Neural Networks.</p>
+            <div class="content-card">
+                <h3>Overview</h3>
+                
+            <p>PyTorch is a powerful deep learning framework that provides Tensors (multi-dimensional arrays with GPU acceleration), Autograd (automatic differentiation), and Dynamic Computation Graphs.</p>
+            <p>In this week, we build neural networks from first principles, avoiding high-level abstractions like <code>nn.Linear</code> until we understand the math underneath.</p>
+        
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-intro" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-intro">I understand the goals of this week</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theory -->
+        <section id="theory" class="section">
+            <h2 class="section-title">Theory & Concepts</h2>
+            
+            <div class="content-card">
+                <h3>Sensors & Operations</h3>
+                <p>Tensors are the fundamental building blocks. They are similar to NumPy arrays but can run on GPUs.</p>
+                <div class="code-block">x = torch.tensor([[1, 2], [3, 4]])</div>
+            </div>
+            <div class="content-card">
+                <h3>Autograd: The Engine of Deep Learning</h3>
+                <p>PyTorch automatically tracks operations on tensors to build a computational graph. When you call <code>.backward()</code>, it computes gradients using the Chain Rule.</p>
+            </div>
+            <div class="content-card">
+                <h3>The Chain Rule</h3>
+                <p>∂y/∂x = (∂y/∂h) * (∂h/∂x)</p>
+                <p>Gradients flow backwards from the output loss to the input parameters.</p>
+            </div>
+        
+             <div class="content-card">
+                 <h3>Concept Check</h3>
+                 <p>Make sure you grasp the core equations before moving to code.</p>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-theory" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-theory">I have reviewed the theoretical foundations</label>
+                </div>
+             </div>
+        </section>
+
+        <!-- Interactive -->
+        <section id="interactive" class="section">
+            <h2 class="section-title">Interactive Lab: Computational Graph</h2>
+            <div class="content-card viz-card">
+                <p>A visualization of how data flows forward (blue) and gradients flow backward (red).</p>
+                <div class="viz-container" id="viz-container">
+                    
+            <svg width="100%" height="300" viewBox="0 0 600 300">
+                <g class="node" transform="translate(100,150)">
+                    <circle r="30" fill="#a855f7" opacity="0.2" />
+                    <circle r="25" fill="#a855f7" />
+                    <text dy="5" text-anchor="middle" fill="white">x</text>
+                    <text dy="45" text-anchor="middle" fill="#a855f7" font-size="12">Input</text>
+                </g>
+                <line x1="130" y1="150" x2="220" y2="150" stroke="#06b6d4" stroke-width="2" />
+                <g class="node" transform="translate(250,150)">
+                    <circle r="30" fill="#06b6d4" opacity="0.2" />
+                    <circle r="25" fill="#06b6d4" />
+                    <text dy="5" text-anchor="middle" fill="white">x²</text>
+                    <text dy="45" text-anchor="middle" fill="#06b6d4" font-size="12">Op</text>
+                </g>
+                <line x1="280" y1="150" x2="370" y2="150" stroke="#10b981" stroke-width="2" />
+                <g class="node" transform="translate(400,150)">
+                    <circle r="30" fill="#10b981" opacity="0.2" />
+                    <circle r="25" fill="#10b981" />
+                    <text dy="5" text-anchor="middle" fill="white">+3</text>
+                </g>
+                <line x1="430" y1="150" x2="470" y2="150" stroke="#f59e0b" stroke-width="2" />
+                <g class="node" transform="translate(500,150)">
+                    <circle r="30" fill="#f59e0b" opacity="0.2" />
+                    <circle r="25" fill="#f59e0b" />
+                    <text dy="5" text-anchor="middle" fill="white">y</text>
+                </g>
+                <path d="M 470 140 L 430 140" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5" />
+                <path d="M 370 140 L 280 140" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5" />
+                <path d="M 220 140 L 130 140" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,5" />
+            </svg>
+        
+                </div>
+                <div class="info-box"><strong>💡 Experiment:</strong> Try different values to see how the system reacts in real-time.</div>
+            </div>
+        </section>
+
+        <!-- Implementation -->
+        <section id="code" class="section">
+            <h2 class="section-title">Code Implementation</h2>
+            <div class="content-card">
+                <h3>Core Logic</h3>
+                <p>Below is the critical implementation from <code>project.py</code>. Analyze how the theory transforms into PyTorch code.</p>
+                <div class="code-block">
+                    <div class="code-header">Python <button class="copy-btn" onclick="copyCode()">Copy</button></div>
+                    <pre><code id="main-code">class ManualLinear(nn.Module):
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        # Xavier initialization
+        self.weight = nn.Parameter(
+            torch.randn(out_features, in_features) * (2.0 / in_features) ** 0.5
+        )
+        self.bias = nn.Parameter(torch.zeros(out_features))
+    
+    def forward(self, x):
+        # x: (batch_size, in_features)
+        # weight: (out_features, in_features)
+        return x @ self.weight.T + self.bias</code></pre>
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-code" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-code">I understand the code implementation</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Project -->
+        <section id="project" class="section">
+             <h2 class="section-title">Weekly Project</h2>
+             <div class="content-card">
+                <h3>MLP from Scratch</h3>
+                <p>Build a Multi-Layer Perceptron to classify MNIST digits without using nn.Linear.</p>
+                <div class="project-specs">
+                    <h4>Step-by-Step Implementation</h4>
+                    <ul class="checklist">
+                        
+            <li>Implement <code>ManualLinear</code> using <code>nn.Parameter</code>.</li>
+            <li>Build an Architecture: 784 → 256 → 128 → 10.</li>
+            <li>Implement the Training Loop with <code>optimizer.zero_grad()</code> and <code>loss.backward()</code>.</li>
+            <li>Achieve >95% accuracy on MNIST.</li>
+        
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <strong>🚀 Challenge:</strong> Can you optimize this further? Check the <code>exercises.py</code> file for bonus tasks.
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-project" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-project">I have completed the weekly project</label>
+                </div>
+             </div>
+        </section>
+
+        <footer>
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn-secondary">← Previous Week</a>
+                <a href="../../modules/week2_transformer/index.html" class="btn-primary">Next Week →</a>
+            </div>
+            <p style="margin-top: 40px; color: var(--text-muted);">Antigravity Learning System &copy; 2026</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Global Progress Logic
+        const CURRENT_WEEK = "week1_pytorch";
+        
+        function updateProgress() {
+            const checks = document.querySelectorAll('.checkpoint-input');
+            const checked = document.querySelectorAll('.checkpoint-input:checked');
+            const progress = (checked.length / checks.length) * 100;
+            
+            document.getElementById('page-progress').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `${Math.round(progress)}% Complete`;
+            
+            // Save to localStorage
+            const state = {};
+            checks.forEach(c => state[c.id] = c.checked);
+            localStorage.setItem(`progress_${CURRENT_WEEK}`, JSON.stringify(state));
+            
+            // Mark week as done if > 90%
+            if (progress > 90) {
+                localStorage.setItem(`status_${CURRENT_WEEK}`, 'done');
+            }
+        }
+
+        function loadProgress() {
+             const saved = JSON.parse(localStorage.getItem(`progress_${CURRENT_WEEK}`));
+             if (saved) {
+                 Object.keys(saved).forEach(id => {
+                     const el = document.getElementById(id);
+                     if(el) el.checked = saved[id];
+                 });
+                 updateProgress();
+             }
+             
+             // Update sidebar ticks
+             document.querySelectorAll('.week-link').forEach(link => {
+                 const week = link.getAttribute('data-week');
+                 if (localStorage.getItem(`status_${week}`) === 'done') {
+                     link.classList.add('done-week');
+                 }
+                 if (week === CURRENT_WEEK) link.classList.add('active-week');
+             });
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('main-code').innerText;
+            navigator.clipboard.writeText(code);
+            alert('Code copied!');
+        }
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>

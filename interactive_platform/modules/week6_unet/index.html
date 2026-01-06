@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6: The U-Net | Deep Learning Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Global Progress Tracker (Hidden Metadata) -->
+    <div id="course-metadata" data-current-week="week6_unet" style="display:none;"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>U-Net Arch</h2>
+            <div class="progress-container">
+                 <div class="progress-bar"><div class="progress-fill" id="page-progress"></div></div>
+                 <span class="progress-text" id="progress-text">0% Complete</span>
+            </div>
+            <a href="../../index.html" class="back-link">← Course Dashboard</a>
+        </div>
+        
+        <div class="nav-scroll-area">
+            <h3 class="nav-section-title">This Module</h3>
+            <ul class="nav-links local-nav">
+                <li><a href="#intro">📖 Introduction</a></li>
+                <li><a href="#theory">🧠 Theory & Math</a></li>
+                <li><a href="#interactive">🔬 Interactive Lab</a></li>
+                <li><a href="#code">💻 Implementation</a></li>
+                <li><a href="#project">🎯 Project</a></li>
+            </ul>
+
+            <h3 class="nav-section-title" style="margin-top:20px;">Course Map</h3>
+            <ul class="nav-links global-nav">
+                <li><a href="../week1_pytorch/index.html" class="week-link" data-week="week1_pytorch">Week 1: PyTorch</a></li>
+                <li><a href="../week2_transformer/index.html" class="week-link" data-week="week2_transformer">Week 2: Transformers</a></li>
+                <li><a href="../week3_llm_variants/index.html" class="week-link" data-week="week3_llm_variants">Week 3: LLMs</a></li>
+                <li><a href="../week4_router/index.html" class="week-link" data-week="week4_router">Week 4: Router</a></li>
+                <li><a href="../week5_diffusion/index.html" class="week-link" data-week="week5_diffusion">Week 5: Diffusion</a></li>
+                <li><a href="../week6_unet/index.html" class="week-link" data-week="week6_unet">Week 6: U-Net</a></li>
+                <li><a href="../week7_ldm/index.html" class="week-link" data-week="week7_ldm">Week 7: Latent Diff.</a></li>
+                <li><a href="../week8_capstone/index.html" class="week-link" data-week="week8_capstone">Week 8: Capstone</a></li>
+                <li><a href="../week9_lora/index.html" class="week-link" data-week="week9_lora">Week 9: LoRA</a></li>
+                <li><a href="../week10_moe/index.html" class="week-link" data-week="week10_moe">Week 10: MoE</a></li>
+                <li><a href="../week11_opt/index.html" class="week-link" data-week="week11_opt">Week 11: Opt</a></li>
+                <li><a href="../week12_capstone/index.html" class="week-link" data-week="week12_capstone">Week 12: Final</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- Hero -->
+        <section id="intro" class="hero-section">
+            <h1 class="gradient-text">Week 6: The U-Net</h1>
+            <p class="subtitle">The backbone of modern generative image models.</p>
+            <div class="content-card">
+                <h3>Overview</h3>
+                <p>The U-Net architecture, originally designed for medical segmentation, is perfect for diffusion because it preserves spatial size. It uses downsampling to capture context and upsampling to localize details, linked by <strong>Skip Connections</strong>.</p>
+                <div class="checkpoint">
+                    <input type="checkbox" id="check-intro" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-intro">I understand the goals of this week</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theory -->
+        <section id="theory" class="section">
+            <h2 class="section-title">Theory & Concepts</h2>
+            
+        <div class="content-card">
+            <h3>Architecture Shape</h3>
+            <p>The "U" shape comes from:</p>
+            <ul>
+                <li><strong>Encoder (Down):</strong> Convolutions + MaxPool. Increases channels, decreases size.</li>
+                <li><strong>Bottleneck:</strong> Deep semantic features.</li>
+                <li><strong>Decoder (Up):</strong> Transpose Convolutions. Decreases channels, increases size.</li>
+            </ul>
+        </div>
+        <div class="content-card">
+            <h3>Skip Connections</h3>
+            <p>We concatenate feature maps from the encoder directly to the decoder. This allows gradients to flow easily and provides high-res details to the upsampling path.</p>
+        </div>
+        
+             <div class="content-card">
+                 <h3>Concept Check</h3>
+                 <p>Make sure you grasp the core equations before moving to code.</p>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-theory" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-theory">I have reviewed the theoretical foundations</label>
+                </div>
+             </div>
+        </section>
+
+        <!-- Interactive -->
+        <section id="interactive" class="section">
+            <h2 class="section-title">Interactive Lab: Skip Connections</h2>
+            <div class="content-card viz-card">
+                <p>Hover over the encoder blocks (Left) to see where the information flows in the decoder (Right).</p>
+                <div class="viz-container" id="viz-container">
+                    
+        <svg viewBox="0 0 400 300" style="width:100%; max-width:500px;">
+            <!-- Encoder -->
+            <rect x="50" y="50" width="40" height="40" fill="#10b981" class="enc-block" onmouseover="highlight(1)" onmouseout="reset()"/>
+            <rect x="70" y="110" width="40" height="40" fill="#10b981" opacity="0.8" class="enc-block" onmouseover="highlight(2)" onmouseout="reset()"/>
+            <rect x="90" y="170" width="40" height="40" fill="#10b981" opacity="0.6" class="enc-block" onmouseover="highlight(3)" onmouseout="reset()"/>
+            
+            <!-- Bottleneck -->
+            <rect x="150" y="230" width="100" height="40" fill="#3b82f6"/>
+            
+            <!-- Decoder -->
+            <rect x="270" y="170" width="40" height="40" fill="#f59e0b" opacity="0.6" class="dec-block" id="dec-3"/>
+            <rect x="290" y="110" width="40" height="40" fill="#f59e0b" opacity="0.8" class="dec-block" id="dec-2"/>
+            <rect x="310" y="50" width="40" height="40" fill="#f59e0b" class="dec-block" id="dec-1"/>
+            
+            <!-- Skip Lines -->
+            <line x1="90" y1="70" x2="310" y2="70" stroke="#fff" stroke-width="2" stroke-dasharray="5,5" opacity="0.3" id="skip-1"/>
+            <line x1="110" y1="130" x2="290" y2="130" stroke="#fff" stroke-width="2" stroke-dasharray="5,5" opacity="0.3" id="skip-2"/>
+            <line x1="130" y1="190" x2="270" y2="190" stroke="#fff" stroke-width="2" stroke-dasharray="5,5" opacity="0.3" id="skip-3"/>
+        </svg>
+        
+                </div>
+                <div class="info-box"><strong>💡 Experiment:</strong> Try different values to see how the system reacts in real-time.</div>
+            </div>
+        </section>
+
+        <!-- Implementation -->
+        <section id="code" class="section">
+            <h2 class="section-title">Code Implementation</h2>
+            <div class="content-card">
+                <h3>Core Logic</h3>
+                <p>Below is the critical implementation from <code>project.py</code>. Analyze how the theory transforms into PyTorch code.</p>
+                <div class="code-block">
+                    <div class="code-header">Python <button class="copy-btn" onclick="copyCode()">Copy</button></div>
+                    <pre><code id="main-code">class UNet(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+        self.down1 = DoubleConv(in_channels, 64)
+        self.down2 = DoubleConv(64, 128)
+        self.bot = DoubleConv(128, 256)
+        self.up1 = Up(256, 128)
+        self.up2 = Up(128, 64)
+        self.out = nn.Conv2d(64, out_channels, 1)
+
+    def forward(self, x):
+        x1 = self.down1(x)
+        x2 = self.down2(x1) # Maxpool inside
+        bot = self.bot(x2)
+        x = self.up1(bot, x2) # Skip connection x2
+        x = self.up2(x, x1)   # Skip connection x1
+        return self.out(x)</code></pre>
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-code" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-code">I understand the code implementation</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Project -->
+        <section id="project" class="section">
+             <h2 class="section-title">Weekly Project</h2>
+             <div class="content-card">
+                <h3>Build a Simple U-Net</h3>
+                <p>Construct a functional U-Net for noise prediction.</p>
+                <div class="project-specs">
+                    <h4>Step-by-Step Implementation</h4>
+                    <ul class="checklist">
+                        
+            <li>Implement the <code>DoubleConv</code> block.</li>
+            <li>Implement <code>Down</code> (Pool) and <code>Up</code> (Upsample + Concat) blocks.</li>
+            <li>Verify output shapes match input shapes.</li>
+            <li>(Bonus) Add Time Embeddings for Diffusion.</li>
+        
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <strong>🚀 Challenge:</strong> Can you optimize this further? Check the <code>exercises.py</code> file for bonus tasks.
+                </div>
+                 <div class="checkpoint">
+                    <input type="checkbox" id="check-project" class="checkpoint-input" onchange="updateProgress()">
+                    <label for="check-project">I have completed the weekly project</label>
+                </div>
+             </div>
+        </section>
+
+        <footer>
+            <div class="nav-buttons">
+                <a href="../../modules/week5_diffusion/index.html" class="btn-secondary">← Previous Week</a>
+                <a href="../../modules/week7_ldm/index.html" class="btn-primary">Next Week →</a>
+            </div>
+            <p style="margin-top: 40px; color: var(--text-muted);">Antigravity Learning System &copy; 2026</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Global Progress Logic
+        const CURRENT_WEEK = "week6_unet";
+        
+        function updateProgress() {
+            const checks = document.querySelectorAll('.checkpoint-input');
+            const checked = document.querySelectorAll('.checkpoint-input:checked');
+            const progress = (checked.length / checks.length) * 100;
+            
+            document.getElementById('page-progress').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `${Math.round(progress)}% Complete`;
+            
+            // Save to localStorage
+            const state = {};
+            checks.forEach(c => state[c.id] = c.checked);
+            localStorage.setItem(`progress_${CURRENT_WEEK}`, JSON.stringify(state));
+            
+            // Mark week as done if > 90%
+            if (progress > 90) {
+                localStorage.setItem(`status_${CURRENT_WEEK}`, 'done');
+            }
+        }
+
+        function loadProgress() {
+             const saved = JSON.parse(localStorage.getItem(`progress_${CURRENT_WEEK}`));
+             if (saved) {
+                 Object.keys(saved).forEach(id => {
+                     const el = document.getElementById(id);
+                     if(el) el.checked = saved[id];
+                 });
+                 updateProgress();
+             }
+             
+             // Update sidebar ticks
+             document.querySelectorAll('.week-link').forEach(link => {
+                 const week = link.getAttribute('data-week');
+                 if (localStorage.getItem(`status_${week}`) === 'done') {
+                     link.classList.add('done-week');
+                 }
+                 if (week === CURRENT_WEEK) link.classList.add('active-week');
+             });
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('main-code').innerText;
+            navigator.clipboard.writeText(code);
+            alert('Code copied!');
+        }
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
